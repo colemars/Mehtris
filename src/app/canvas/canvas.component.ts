@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //required to include scripts in angular.cli and types in tsconfig
 import "p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
+import { SquareTetromino } from '../models/square_tetromino.model'
 
 @Component({
   selector: 'app-canvas',
@@ -14,7 +15,10 @@ export class CanvasComponent implements OnInit {
 
   ngOnInit() {
 
-    let canvas;
+    let canvas,
+        square,
+        speedX = 0,
+        speedY;
 
   const sketch = (s) => {
 
@@ -30,9 +34,17 @@ export class CanvasComponent implements OnInit {
       let x = (window.innerWidth - s.width) / 2;
       let y = (window.innerHeight - s.height) / 2;
       canvas.position(x,y);
-      s.background(255, 0, 200);
+      // s.background(255, 0, 200);
+
+      square = new SquareTetromino(100,100,100,100, speedX)
     }
 
+
+    s.keyPressed = () => {
+      speedX+=5;
+      console.log(speedX)
+      square.move(speedX)
+    }
     // s.centerCanvas = () => {
     //   // canvas = s.createCanvas(200,400); //height of 24 to allow extra space for blocks to spawn
     //   let x = (window.innerWidth - s.width) / 2;
@@ -41,6 +53,12 @@ export class CanvasComponent implements OnInit {
     // }
 
     s.draw = () => {
+      s.background('green');
+      s.noStroke(255);
+      square.show(s)
+      // console.log('hit')
+
+
       // s.background('black');
       // s.noStroke(255);
       // s.fill(170);
