@@ -2,7 +2,7 @@ import * as p5 from 'p5';
 
 export class SquareTetromino {
   [x: string]: any;
-  constructor(x, y, w, h, posX, posY) {
+  constructor(x, y, w, h) {
     this.w = w;
     this.h = h;
     this.x = x;
