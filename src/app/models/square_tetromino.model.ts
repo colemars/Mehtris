@@ -15,6 +15,7 @@ export class SquareTetromino {
      p5.push();
      p5.translate(this.posX, this.posY);
      // p5.rectMode(p5.CENTER);
+     p5.fill("#D8B6FF")
      p5.rect(0,0,this.w, this.h);
      p5.pop();
 
