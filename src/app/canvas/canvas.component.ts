@@ -17,8 +17,6 @@ export class CanvasComponent implements OnInit {
 
     let canvas,
         square,
-        posX = 0,
-        posY = 0,
         bodies = [],
         count = 0;
 
@@ -70,7 +68,7 @@ export class CanvasComponent implements OnInit {
     // }
 
     s.draw = () => {
-      s.background('green');
+      s.background('#7FB28A');
       s.noStroke(255);
 
       // count = 0;
