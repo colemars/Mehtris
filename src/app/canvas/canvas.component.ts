@@ -17,8 +17,8 @@ export class CanvasComponent implements OnInit {
 
     let canvas,
         square,
-        speedX = 0,
-        speedY;
+        posX = 0,
+        posY = 0;
 
   const sketch = (s) => {
 
@@ -36,14 +36,26 @@ export class CanvasComponent implements OnInit {
       canvas.position(x,y);
       // s.background(255, 0, 200);
 
-      square = new SquareTetromino(100,100,100,100, speedX)
+      square = new SquareTetromino(50,50,50,50, posX, posY)
     }
 
 
     s.keyPressed = () => {
-      speedX+=5;
-      console.log(speedX)
-      square.move(speedX)
+      if((s.keyCode === s.RIGHT_ARROW) && (posX <= 400)) {
+        posX += 50;
+      } else if ((s.keyCode === s.LEFT_ARROW) && (posX >= 50)) {
+        posX -= 50;
+      } else if((s.keyCode === s.DOWN_ARROW) && (posY <= 900)) {
+        posY += 50;
+      }
+
+
+
+
+      console.log("X", posX)
+      console.log("Y", posY)
+      square.move(posX, posY)
+
     }
     // s.centerCanvas = () => {
     //   // canvas = s.createCanvas(200,400); //height of 24 to allow extra space for blocks to spawn
