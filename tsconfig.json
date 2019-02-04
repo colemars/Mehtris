@@ -8,6 +8,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "types": [
+           "node",
+           "p5"
+    ],
     "typeRoots": [
       "node_modules/@types"
     ],
