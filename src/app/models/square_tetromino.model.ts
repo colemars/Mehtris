@@ -7,8 +7,8 @@ export class SquareTetromino {
     this.h = h;
     this.x = x;
     this.y = y;
-    this.posX = posX;
-    this.posY = posY;
+    this.posX = 50;
+    this.posY = 50;
   }
 
   show(p5) {
@@ -18,11 +18,6 @@ export class SquareTetromino {
      p5.rect(0,0,this.w, this.h);
      p5.pop();
 
-  }
-
-  move(posX, posY) {
-    this.posX = posX
-    this.posY = posY
   }
 
 }
