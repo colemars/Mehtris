@@ -9,6 +9,8 @@ export class SquareTetromino {
     this.y = y;
     this.posX = 50;
     this.posY = 50;
+    this.id = 0;
+    this.dead = false;
   }
 
   show(p5) {
@@ -21,4 +23,16 @@ export class SquareTetromino {
 
   }
 
-}
+  hitHeight(p5, bodies) {
+    if (this.dead === false) {
+      for (let i = 0; i < bodies.length; i++) {
+        if (bodies[i].id != this.id) {
+          if((this.posX < bodies[i].posX + bodies[i].w) && (this.posX + this.w > bodies[i].posX) && (this.posY < bodies[i].posY + bodies[i].h) && (this.posY + this.h + 50 > bodies[i].posY)) {
+             console.log("hit")
+             return true;
+            }
+          }
+        }
+      }
+    }
+  }
