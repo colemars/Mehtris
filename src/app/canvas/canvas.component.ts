@@ -18,7 +18,9 @@ export class CanvasComponent implements OnInit {
     let canvas,
         square,
         posX = 0,
-        posY = 0;
+        posY = 0,
+        bodies = [],
+        count = 0;
 
   const sketch = (s) => {
 
@@ -36,25 +38,28 @@ export class CanvasComponent implements OnInit {
       canvas.position(x,y);
       // s.background(255, 0, 200);
 
-      square = new SquareTetromino(50,50,50,50, posX, posY)
+      bodies.push(new SquareTetromino(50,50,50,50))
     }
 
 
     s.keyPressed = () => {
-      if((s.keyCode === s.RIGHT_ARROW) && (posX <= 400)) {
-        posX += 50;
-      } else if ((s.keyCode === s.LEFT_ARROW) && (posX >= 50)) {
-        posX -= 50;
-      } else if((s.keyCode === s.DOWN_ARROW) && (posY <= 900)) {
-        posY += 50;
+      //moves piece within boundaries
+      if((s.keyCode === s.RIGHT_ARROW) && (bodies[count].posX <= 400)) {
+        bodies[count].posX += 50;
+      } else if ((s.keyCode === s.LEFT_ARROW) && (bodies[count].posX >= 50)) {
+        bodies[count].posX -= 50;
+      } else if((s.keyCode === s.DOWN_ARROW) && (bodies[count].posY <= 900)) {
+        bodies[count].posY += 50;
       }
 
 
-
-
-      console.log("X", posX)
-      console.log("Y", posY)
-      square.move(posX, posY)
+      if (bodies[count].posY >= 950) {
+        count++;
+        bodies.push(new SquareTetromino(50,50,50,50))
+        console.log(bodies);
+      }
+      console.log("X", bodies[count].posX)
+      console.log("Y", bodies[count].posY)
 
     }
     // s.centerCanvas = () => {
@@ -67,7 +72,20 @@ export class CanvasComponent implements OnInit {
     s.draw = () => {
       s.background('green');
       s.noStroke(255);
-      square.show(s)
+
+      // count = 0;
+      // if (bodies[count].posY >= 950) {
+      //   posY = 0;
+      //   count++;
+      //   bodies.push(new SquareTetromino(50,50,50,50, posX = 500, 0))
+      //   console.log(bodies);
+      // }
+
+      for (let i = 0; i < bodies.length; i++) {
+          bodies[i].show(s)
+        }
+
+
       // console.log('hit')
 
 
