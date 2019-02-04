@@ -20,6 +20,7 @@ export class CanvasComponent implements OnInit {
         bodies = [],
         count = 0;
 
+
   const sketch = (s) => {
 
     s.preload = () => {
@@ -49,15 +50,38 @@ export class CanvasComponent implements OnInit {
       } else if((s.keyCode === s.DOWN_ARROW) && (bodies[count].posY <= 900)) {
         bodies[count].posY += 50;
       }
+      // if (bodies.length > 1) {
+      //   if((bodies[0].posX < bodies[1].posX + bodies[1].w) && (bodies[0].posX + bodies[0].w > bodies[1].posX) && (bodies[0].posY < bodies[1].posY + bodies[1].h) && (bodies[0].posY + bodies[0].h > bodies[1].posY)) {
+      //     console.log("hit")
+      //   }
+      // // let test = s.collidePointRect(bodies[0].posX, bodies[0].posY, bodies[1].posX, bodies[1].posY, bodies[1].w, bodies[1].h)
+      //
+      // }
 
+      // for (let i = 0; i < bodies.length; i++) {
+      //   // console.log(bodies[i].hit(s, bodies))
+      //   if (bodies[i].hitHeight(s, bodies, down, side)) {
+      //     // bodies[i].posY -= 50;
+      //     bodies[count].dead = true;
+      //     count++;
+      //     bodies.push(new SquareTetromino(50,50,50,50))
+      //     bodies[count].id += count;
+      //   }
+      //   // console.log(bodies[i].hit(s, bodies))
+      // }
 
       if (bodies[count].posY >= 950) {
+        bodies[count].dead = true;
         count++;
         bodies.push(new SquareTetromino(50,50,50,50))
-        console.log(bodies);
+        bodies[count].id += count;
+        console.log(bodies[count].id);
       }
-      console.log("X", bodies[count].posX)
-      console.log("Y", bodies[count].posY)
+
+
+      // console.log("X", bodies[count].posX)
+      // console.log("Y", bodies[count].posY)
+
 
     }
     // s.centerCanvas = () => {
@@ -81,6 +105,20 @@ export class CanvasComponent implements OnInit {
 
       for (let i = 0; i < bodies.length; i++) {
           bodies[i].show(s)
+          // bodies[i].hit(s, bodies)
+          // console.log(bodies[i].hit(s, bodies))
+        }
+
+        for (let i = 0; i < bodies.length; i++) {
+          // console.log(bodies[i].hit(s, bodies))
+          if (bodies[i].hitHeight(s, bodies)) {
+            // bodies[i].posY -= 50;
+            bodies[count].dead = true;
+            count++;
+            bodies.push(new SquareTetromino(50,50,50,50))
+            bodies[count].id += count;
+          }
+          // console.log(bodies[i].hit(s, bodies))
         }
 
 
