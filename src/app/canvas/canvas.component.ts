@@ -68,31 +68,44 @@ export class CanvasComponent implements OnInit {
         }
 
         let deadPieceArray = [];
+        let deadPieceSortedArray = [];
         for (let i = 0; i < bodies.length; i++) {
           if(bodies[i].dead === true) {
-            deadPieceArray.push(bodies[i])
+            deadPieceArray.push(bodies[i]);
+            deadPieceSortedArray.push(bodies[i]);
           }
         }
 
 
+
+        console.log("Dead Pieces", deadPieceArray);
         let deadPiecePosY = [];
         let deadPieceId = [];
-        deadPiecePosY.sort();
-        console.log(deadPiecePosY);
+
+        function sortNumbers(a, b) {
+          return a - b;
+        }
+
+        let testFunction = deadPieceSortedArray.sort(function(a, b) {
+          return a.posY - b.posY;
+        });
+        console.log("Sorted by Y", testFunction)
+        console.log("Not Sorted", deadPiecePosY);
+
         for (let i = 0; i < deadPieceArray.length; i++) {
           deadPiecePosY.push(deadPieceArray[i].posY);
           deadPieceId.push(deadPieceArray[i].id);
         }
 
         let a = [], b = [], prev;
-        for (let i = 0; i < deadPiecePosY.length; i++) {
-          if (deadPiecePosY[i] !== prev) {
-            a.push(deadPiecePosY[i]);
+        for (let i = 0; i < testFunction.length; i++) {
+            if (testFunction[i].posY !== prev) {
+            a.push(testFunction[i].posY);
             b.push(1);
           } else {
             b[b.length-1]++;
           }
-          prev = deadPiecePosY[i];
+          prev = testFunction[i].posY;
         }
 
         console.log([a, b])
