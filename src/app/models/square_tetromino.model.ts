@@ -46,6 +46,11 @@ export class SquareTetromino {
 
   hit(p5, bodies, side, down) {
     if (this.dead === false) {
+      console.log("alive")
+      if (this.posY >= 950) {
+        console.log('hit')
+        return true;
+      } else {
       for (let i = 0; i < bodies.length; i++) {
         if (bodies[i].id != this.id) {
           if((this.posX + side < bodies[i].posX + bodies[i].w) && (this.posX + side + this.w > bodies[i].posX) && (this.posY + down < bodies[i].posY + bodies[i].h) && (this.posY + down + this.h > bodies[i].posY)) {
@@ -55,6 +60,7 @@ export class SquareTetromino {
           }
         }
       }
+    }
     }
 
 

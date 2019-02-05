@@ -37,6 +37,18 @@ export class CanvasComponent implements OnInit {
       // s.background(255, 0, 200);
 
       bodies.push(new SquareTetromino(50,50,50,50))
+
+      for (let i = 0; i < bodies.length; i++) {
+          setInterval(function(){
+          if (!(bodies[count].moveDown(s, bodies))) {
+            bodies[count].dead = true;
+            count++;
+            bodies.push(new SquareTetromino(50,50,50,50))
+            bodies[count].id += count;
+          }
+          }, 3000);
+        }
+
     }
 
 
@@ -45,26 +57,18 @@ export class CanvasComponent implements OnInit {
       if((s.keyCode === s.RIGHT_ARROW) && (bodies[count].posX <= 400)) {
         if (!(bodies[count].moveRight(s, bodies))) {
           console.log("hello")
-          // bodies[count].dead = true;
-          // count++;
-          // bodies.push(new SquareTetromino(50,50,50,50))
-          // bodies[count].id += count;
+
 
         }
       } else if ((s.keyCode === s.LEFT_ARROW) && (bodies[count].posX >= 50)) {
         if (!(bodies[count].moveLeft(s, bodies))) {
           console.log("hello")
-          // bodies[count].dead = true;
-          // count++;
-          // bodies.push(new SquareTetromino(50,50,50,50))
-          // bodies[count].id += count;
 
         }
-      } else if((s.keyCode === s.DOWN_ARROW) && (bodies[count].posY <= 900)) {
+      } else if((s.keyCode === s.DOWN_ARROW)) {
 
         //if moveDown returns false, create new box
         if (!(bodies[count].moveDown(s, bodies))) {
-          console.log("hello")
           bodies[count].dead = true;
           count++;
           bodies.push(new SquareTetromino(50,50,50,50))
@@ -73,13 +77,12 @@ export class CanvasComponent implements OnInit {
         }
       }
 
-      if (bodies[count].posY >= 950) {
-        bodies[count].dead = true;
-        count++;
-        bodies.push(new SquareTetromino(50,50,50,50))
-        bodies[count].id += count;
-        console.log(bodies[count].id);
-      }
+      // if (bodies[count].posY >= 950) {
+      //   bodies[count].dead = true;
+      //   count++;
+      //   bodies.push(new SquareTetromino(50,50,50,50))
+      //   bodies[count].id += count;
+      // }
 
 
 
