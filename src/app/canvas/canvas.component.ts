@@ -44,9 +44,13 @@ export class CanvasComponent implements OnInit {
     s.keyPressed = () => {
       //moves piece within boundaries
       if((s.keyCode === s.RIGHT_ARROW) && (bodies[count].posX <= 400)) {
-        bodies[count].posX += 50;
+        if (bodies[count].hitHeight(bodies) != "hit left") {
+          bodies[count].posX += 50;
+        }
       } else if ((s.keyCode === s.LEFT_ARROW) && (bodies[count].posX >= 50)) {
-        bodies[count].posX -= 50;
+        if (bodies[count].hitHeight(bodies) != "hit right") {
+          bodies[count].posX -= 50;
+        }
       } else if((s.keyCode === s.DOWN_ARROW) && (bodies[count].posY <= 900)) {
         bodies[count].posY += 50;
       }
@@ -111,7 +115,7 @@ export class CanvasComponent implements OnInit {
 
         for (let i = 0; i < bodies.length; i++) {
           // console.log(bodies[i].hit(s, bodies))
-          if (bodies[i].hitHeight(s, bodies)) {
+          if (bodies[i].hitHeight(bodies) === "hit top") {
             // bodies[i].posY -= 50;
             bodies[count].dead = true;
             count++;

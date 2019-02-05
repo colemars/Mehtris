@@ -23,19 +23,25 @@ export class SquareTetromino {
 
   }
 
-  hitHeight(p5, bodies) {
+  hitHeight(bodies) {
     if (this.dead === false) {
       for (let i = 0; i < bodies.length; i++) {
         if (bodies[i].id != this.id) {
           if (this.posY + this.h == bodies[i].posY && this.posX + this.w == bodies[i].posX + bodies[i].w) {
             console.log("Hit top")
-            return true;
+            return "hit top";
+          }
+          else if ((this.posX + this.w == bodies[i].posX && bodies[i].posX + bodies[i].w == this.posX) && (bodies[i].posY + bodies[i].h == this.posY + this.h)) {
+            console.log("Hit left and right side")
+            return "hit left-right";
+
           } else if ((this.posX + this.w == bodies[i].posX) && bodies[i].posY + bodies[i].h == this.posY + this.h) {
             // collision detected!
             console.log("Hit left side")
-
+            return "hit left"
           } else if ((bodies[i].posX + bodies[i].w == this.posX && bodies[i].posY + bodies[i].h == this.posY + this.h)) {
             console.log("Hit right side")
+            return "hit right"
           }
           // if((this.posX < bodies[i].posX + bodies[i].w) && (this.posX + this.w > bodies[i].posX) && (this.posY < bodies[i].posY + bodies[i].h) && (this.posY + this.h + 50 > bodies[i].posY)) {
           //    console.log("hit")
