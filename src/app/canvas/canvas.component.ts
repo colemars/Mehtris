@@ -41,51 +41,29 @@ export class CanvasComponent implements OnInit {
       for (let i = 0; i < bodies.length; i++) {
           setInterval(function(){
           if (!(bodies[count].moveDown(s, bodies))) {
-            bodies[count].dead = true;
             count++;
             bodies.push(new SquareTetromino(50,50,50,50))
             bodies[count].id += count;
           }
-          }, 3000);
-        }
-
+        }, 3000);
+      }
     }
 
 
     s.keyPressed = () => {
       //moves piece within boundaries
       if((s.keyCode === s.RIGHT_ARROW) && (bodies[count].posX <= 400)) {
-        if (!(bodies[count].moveRight(s, bodies))) {
-          console.log("hello")
-
-
-        }
+        (bodies[count].moveRight(s, bodies))
       } else if ((s.keyCode === s.LEFT_ARROW) && (bodies[count].posX >= 50)) {
-        if (!(bodies[count].moveLeft(s, bodies))) {
-          console.log("hello")
-
-        }
+        (bodies[count].moveLeft(s, bodies))
       } else if((s.keyCode === s.DOWN_ARROW)) {
-
         //if moveDown returns false, create new box
         if (!(bodies[count].moveDown(s, bodies))) {
-          bodies[count].dead = true;
           count++;
           bodies.push(new SquareTetromino(50,50,50,50))
           bodies[count].id += count;
-
         }
       }
-
-      // if (bodies[count].posY >= 950) {
-      //   bodies[count].dead = true;
-      //   count++;
-      //   bodies.push(new SquareTetromino(50,50,50,50))
-      //   bodies[count].id += count;
-      // }
-
-
-
     }
 
 
@@ -94,10 +72,9 @@ export class CanvasComponent implements OnInit {
       s.noStroke(255);
 
 
-
+      //shows all bodies
       for (let i = 0; i < bodies.length; i++) {
           bodies[i].show(s)
-
         }
 
 
