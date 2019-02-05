@@ -10,8 +10,11 @@ import { SquareTetromino } from '../models/square_tetromino.model'
   styleUrls: ['./canvas.component.css']
 })
 export class CanvasComponent implements OnInit {
+  body: any;
   p5 : any;
-  constructor() { }
+  constructor() {
+    this.body;
+  }
 
   ngOnInit() {
 
@@ -20,8 +23,7 @@ export class CanvasComponent implements OnInit {
         bodies = [],
         count = 0;
 
-
-  const sketch = (s) => {
+    const sketch = (s) => {
 
     s.preload = () => {
 
@@ -43,96 +45,128 @@ export class CanvasComponent implements OnInit {
 
     s.keyPressed = () => {
       //moves piece within boundaries
-      if((s.keyCode === s.RIGHT_ARROW) && (bodies[count].posX <= 400)) {
-        bodies[count].posX += 50;
-      } else if ((s.keyCode === s.LEFT_ARROW) && (bodies[count].posX >= 50)) {
-        bodies[count].posX -= 50;
-      } else if((s.keyCode === s.DOWN_ARROW) && (bodies[count].posY <= 900)) {
-        bodies[count].posY += 50;
-      }
-      // if (bodies.length > 1) {
-      //   if((bodies[0].posX < bodies[1].posX + bodies[1].w) && (bodies[0].posX + bodies[0].w > bodies[1].posX) && (bodies[0].posY < bodies[1].posY + bodies[1].h) && (bodies[0].posY + bodies[0].h > bodies[1].posY)) {
-      //     console.log("hit")
-      //   }
-      // // let test = s.collidePointRect(bodies[0].posX, bodies[0].posY, bodies[1].posX, bodies[1].posY, bodies[1].w, bodies[1].h)
-      //
-      // }
+      if((s.keyCode === s.RIGHT_ARROW) && (this.body.posX <= 400)) {
+        if (!(this.body.moveRight(s, bodies))) {
+          console.log("hello")
+          // bodies[count].dead = true;
+          // count++;
+          // bodies.push(new SquareTetromino(50,50,50,50))
+          // bodies[count].id += count;
 
-      // for (let i = 0; i < bodies.length; i++) {
-      //   // console.log(bodies[i].hit(s, bodies))
-      //   if (bodies[i].hitHeight(s, bodies, down, side)) {
-      //     // bodies[i].posY -= 50;
-      //     bodies[count].dead = true;
-      //     count++;
-      //     bodies.push(new SquareTetromino(50,50,50,50))
-      //     bodies[count].id += count;
-      //   }
-      //   // console.log(bodies[i].hit(s, bodies))
-      // }
+        }
+      } else if ((s.keyCode === s.LEFT_ARROW) && (this.body.posX >= 50)) {
+        if (!(this.body.moveLeft(s, bodies))) {
+          console.log("hello")
+          // bodies[count].dead = true;
+          // count++;
+          // bodies.push(new SquareTetromino(50,50,50,50))
+          // bodies[count].id += count;
 
-      if (bodies[count].posY >= 950) {
-        bodies[count].dead = true;
-        count++;
-        bodies.push(new SquareTetromino(50,50,50,50))
-        bodies[count].id += count;
-        console.log(bodies[count].id);
+        }
+      } else if((s.keyCode === s.DOWN_ARROW) && (this.body.posY <= 900)) {
+
+        //if moveDown returns false, create new box
+        if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
+          console.log("hello")
+          this.body.dead = true;
+          count++;
+          bodies.push(new SquareTetromino(50,50,50,50))
+          this.body.id += count;
+
+        }
       }
 
+      // if (bodies[count].posY >= 950) {
+      //   bodies[count].dead = true;
+      //   count++;
+      //   bodies.push(new SquareTetromino(50,50,50,50))
+      //   bodies[count].id += count;
+      //   console.log(bodies[count].id);
+      // }
 
-      // console.log("X", bodies[count].posX)
-      // console.log("Y", bodies[count].posY)
+      let deadPieceArray = [];
+        let deadPieceSortedArray = [];
+        console.log("Dead pieces:", deadPieceArray);
+        for (let i = 0; i < bodies.length; i++) {
+          if(bodies[i].dead === true) {
+            deadPieceArray.push(bodies[i]);
+            deadPieceSortedArray.push(bodies[i]);
+          }
+        }
+
+        let deadPiecePosY = [];
+        let deadPieceId = [];
+
+        function sortNumbers(a, b) {
+          return a - b;
+        }
+
+        let testFunction = deadPieceSortedArray.sort(function(a, b) {
+          return a.posY - b.posY;
+        });
+
+
+        for (let i = 0; i < deadPieceArray.length; i++) {
+          deadPiecePosY.push(deadPieceArray[i].posY);
+          deadPieceId.push(deadPieceArray[i].id);
+        }
+
+        let posYTrack = [], AmmountOfPosY = [], prev;
+        for (let i = 0; i < testFunction.length; i++) {
+            if (testFunction[i].posY !== prev) {
+            posYTrack.push(testFunction[i].posY);
+            AmmountOfPosY.push(1);
+          } else {
+            AmmountOfPosY[AmmountOfPosY.length-1]++;
+          }
+          prev = testFunction[i].posY;
+        }
+
+        console.log(["Y Position:", posYTrack, "Amount of:", AmmountOfPosY])
+
+        let linesOfArray = [];
+        for (let i = 0; i < AmmountOfPosY.length; i++) {
+          if (AmmountOfPosY[i] === 10) {
+            console.log("Line on Y position:", posYTrack[i])
+            let line = posYTrack[i]
+            for (let j = 0; j < deadPieceArray.length; j++) {
+              if(deadPieceArray[j].posY === line) {
+                bodies.splice(bodies.indexOf(deadPieceArray[j]), 1)
+              }
+            }
+          }
+        }
+        console.log("Lines:", linesOfArray)
+
 
 
     }
-    // s.centerCanvas = () => {
-    //   // canvas = s.createCanvas(200,400); //height of 24 to allow extra space for blocks to spawn
-    //   let x = (window.innerWidth - s.width) / 2;
-    //   let y = (window.innerHeight - s.height) / 2;
-    //   canvas.position(10, 10);
-    // }
+
 
     s.draw = () => {
       s.background('#7FB28A');
       s.noStroke(255);
 
-      // count = 0;
-      // if (bodies[count].posY >= 950) {
-      //   posY = 0;
-      //   count++;
-      //   bodies.push(new SquareTetromino(50,50,50,50, posX = 500, 0))
-      //   console.log(bodies);
-      // }
+
 
       for (let i = 0; i < bodies.length; i++) {
           bodies[i].show(s)
-          // bodies[i].hit(s, bodies)
-          // console.log(bodies[i].hit(s, bodies))
-        }
+      }
 
-        for (let i = 0; i < bodies.length; i++) {
-          // console.log(bodies[i].hit(s, bodies))
-          if (bodies[i].hitHeight(s, bodies)) {
-            // bodies[i].posY -= 50;
-            bodies[count].dead = true;
-            count++;
-            bodies.push(new SquareTetromino(50,50,50,50))
-            bodies[count].id += count;
+      for (let i = 0; i < bodies.length; i++) {
+          if (bodies[i].dead === false) {
+            this.body = bodies[i];
           }
-          // console.log(bodies[i].hit(s, bodies))
         }
 
 
-      // console.log('hit')
 
-
-      // s.background('black');
-      // s.noStroke(255);
-      // s.fill(170);
 
     };
   }
-  this.p5 = new p5(sketch);
 
+
+  this.p5 = new p5(sketch);
   }
 
 }
