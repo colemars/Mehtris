@@ -16,8 +16,7 @@ export class ScoreComponent implements OnInit {
   displayLevel: number = this.score.level;
   displayLines: number = this.score.lines;
 
-  constructor(
-  ) { }
+  constructor() {}
 
   ngOnInit() {
   }

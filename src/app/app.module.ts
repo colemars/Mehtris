@@ -4,12 +4,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
+import { ScoreComponent } from './score/score.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CanvasComponent
+    CanvasComponent,
+    ScoreComponent
   ],
   imports: [
     BrowserModule
