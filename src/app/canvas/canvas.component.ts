@@ -115,31 +115,64 @@ export class CanvasComponent implements OnInit {
       deadPieceId.push(deadPieceArray[i].id);
     }
 
-    let posYTrack = [], AmmountOfPosY = [], prev;
+    let posYTrack = [], AmountOfPosY = [], prev;
     for (let i = 0; i < testFunction.length; i++) {
       if (testFunction[i].posY !== prev) {
         posYTrack.push(testFunction[i].posY);
-        AmmountOfPosY.push(1);
+        AmountOfPosY.push(1);
       } else {
-        AmmountOfPosY[AmmountOfPosY.length-1]++;
+        AmountOfPosY[AmountOfPosY.length-1]++;
       }
       prev = testFunction[i].posY;
     }
 
-    // console.log(["Y Position:", posYTrack, "Amount of:", AmmountOfPosY])
-
+    // console.log(["Y Position:", posYTrack, "Amount of:", AmountOfPosY])
+      // console.log(posYTrack)
     let linesOfArray = [];
-    for (let i = 0; i < AmmountOfPosY.length; i++) {
-      if (AmmountOfPosY[i] === 10) {
+    let moveArray =[]
+    console.log(deadPieceArray.length)
+    for (let i = 0; i < AmountOfPosY.length; i++) {
+      if (AmountOfPosY[i] === 3) {
         // console.log("Line on Y position:", posYTrack[i])
         let line = posYTrack[i]
+        // let aboveLine = posYTrack[i-1]
+        // console.log(aboveLine)
         for (let j = 0; j < deadPieceArray.length; j++) {
+          // if(deadPieceArray[j].posY === aboveLine) {
+          //   bodies[bodies.indexOf(deadPieceArray[j])].posY += 50;
+          // }
           if(deadPieceArray[j].posY === line) {
-            bodies.splice(bodies.indexOf(deadPieceArray[j]), 1)
+            bodies.splice(bodies.indexOf(deadPieceArray[j]), 1);
+            // console.log(bodies[bodies.indexOf(deadPieceArray[j+1])])
+            // console.log(deadPieceArray)
+            // bodies.forEach((body) => {
+            //   body.posY += 50;
+            // })
+          } else {
+              moveArray.push(bodies[bodies.indexOf(deadPieceArray[j])])
+              console.log(moveArray)
           }
         }
       }
+      // else if (AmountOfPosY[i] != 3) {
+      //   let line = posYTrack[i]
+      //   for (let j = 0; j < deadPieceArray.length; j++) {
+      //     if(deadPieceArray[j].posY === line) {
+      //       bodies[bodies.indexOf(deadPieceArray[j])].posY += 50;
+      //     }
+      //   }
+      // }
     }
+
+    for (let i = 0; i < moveArray.length; i++) {
+
+      bodies[bodies.indexOf(moveArray[i])].posY += 50;
+      console.log('move',i)
+      if (i === moveArray.length - 1) {
+        moveArray.length = 0;
+      }
+    }
+
     // console.log("Lines:", linesOfArray)
 
 
