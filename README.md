@@ -33,13 +33,13 @@ $ ng serve
 ## Early Goals
 * _Create a canvas, 10 blocks wide, 20 blocks tall._
 * _Create a single block._
-* _make block left/right/soft/hard drop controllable._
 * _Stop/detect collision at the canvas bottom/left/right._
 * _Have blocks be able to stack on top of other "dead" blocks._
 * _Detect when a line is made._
 * _Clear objects once a line is made._
 * _Clear multiple lines at once._
 * _Create the 4-square tetris game pieces._
+* _make block left/right/soft/hard drop controllable._
 * _Create clockwise and CCW block rotation._
 * _RNG for block spawning._
 * _Create a "Show next block"._
