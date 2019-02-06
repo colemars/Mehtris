@@ -24,7 +24,7 @@ export class CanvasComponent implements OnInit {
     count = 0,
 //------------------------------------------------------------- inserted by Bob
     font,
-    fontsize = 40;
+    fontsize = 12;
 //------------------------------------------------------------- inserted by Bob
     const sketch = (s) => {
 
@@ -102,7 +102,7 @@ export class CanvasComponent implements OnInit {
       // Align the text to the left
       // and run drawWords() in the right third of the canvas
       s.textAlign(s.LEFT);
-      drawWords(s.width * 0.6);
+      drawWords(s.width * 0.75);
 //------------------------------------------------------------- inserted by Bob
 
       for (let i = 0; i < bodies.length; i++) {
@@ -134,16 +134,16 @@ export class CanvasComponent implements OnInit {
       // the text to draw, the horizontal position,
       // and the vertical position
       s.fill(0);
-      s.text('ichi', x, 80);
+      s.text('Text line 1', x, 80);
 
       s.fill(65);
-      s.text('ni', x, 150);
+      s.text('Text line 2', x, 150);
 
       s.fill(190);
-      s.text('san', x, 220);
+      s.text('Text line 3', x, 220);
 
       s.fill(255);
-      s.text('shi', x, 290);
+      s.text('Text line 4', x, 290);
     }
 //------------------------------------------------------------- inserted by Bob
     function sortNumbers(a, b) {
