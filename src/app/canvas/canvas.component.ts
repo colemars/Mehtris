@@ -94,9 +94,10 @@ export class CanvasComponent implements OnInit {
           // console.log("Down:", live[i].collidedDown)
           // console.log("PosX:", live[i].posX)
         }
+
+
+
       }
-
-
 
 
       s.draw = () => {
@@ -128,29 +129,19 @@ export class CanvasComponent implements OnInit {
           }
           if(live[i].dead === true) {
             live.length = 0;
+            // for(let y = 0; y < bodies.length; y++) {
+            //   bodies[y].dead = true;
+            // }
             for(let j = 0; j < 4; j++) {
               bodies.push(new BlockTetromino(200, 100).test(s)[j])
-
             }
             for (let l = 0; l < bodies.length; l++) {
               if (bodies[l].dead === false) {
                 live.push(bodies[l])
-
               }
             }
           }
         }
-
-        for (let i = 0; i < bodies.length; i++) {
-          bodies[i].show(s)
-        }
-
-        for (let i = 0; i < bodies.length; i++) {
-          if (bodies[i].dead === false) {
-            this.body = bodies[i]
-          }
-        }
-
 
         let deadPieceArray = [];
         let deadPieceSortedArray = [];
@@ -202,16 +193,57 @@ export class CanvasComponent implements OnInit {
           // console.log("Line on Y position:", posYTrack[i])
           let line = posYTrack[i]
           areLines.push(line)
-          console.log("Lines made:", areLines.length)
+          for (let i = 0; i < bodies.length; i++) {
+
+          }
+
         }
       }
-          // console.log("Line", line)
-          // let aboveLine = posYTrack[i-1]
-          // console.log(aboveLine)
-      //     for (let j = 0; j < deadPieceArray.length; j++) {
-      //     // if(deadPieceArray[j].posY === aboveLine) {
-      //     //   bodies[bodies.indexOf(deadPieceArray[j])].posY += 50;
-      //     // }
+
+        let tempErasedLines = []
+
+        if(areLines.length === 2) {
+          for(let j = 0; j < bodies.length; j++) {
+            if((bodies[j].posY === areLines[0]) || (bodies[j].posY === areLines[1]) && (bodies[j].dead === true)) {
+              tempErasedLines.push(bodies[j])
+            } else {
+              moveArray.push(bodies[j])
+            }
+          }
+          for(let i = 0; i < tempErasedLines.length; i++) {
+            bodies.splice(bodies[bodies.indexOf(tempErasedLines[i])], 1)
+          }
+        }
+
+        for (let i = 0; i < bodies.length; i++) {
+          bodies[i].show(s)
+        }
+
+        for (let i = 0; i < bodies.length; i++) {
+          if (bodies[i].dead === false) {
+            this.body = bodies[i]
+          }
+        }
+
+      for (let i = 0; i < moveArray.length; i++) {
+
+      bodies[bodies.indexOf(moveArray[i])].posY += 50;
+      console.log('move',i)
+      if (i === moveArray.length - 1) {
+        moveArray.length = 0;
+      }
+    }
+
+
+
+        //   // console.log("Line", line)
+        //   let aboveLine = posYTrack[i-1]
+        //   // console.log(aboveLine)
+        //   for (let j = 0; j < deadPieceArray.length; j++) {
+        //   if(deadPieceArray[j].posY === aboveLine) {
+        //     bodies[bodies.indexOf(deadPieceArray[j])].posY += 50;
+        //   }
+        // }
       //     if(deadPieceArray[j].posY === line) {
       //     // console.log("Erased pieces:", bodies.indexOf(deadPieceArray[j]), 1)
       //     // console.log("Live pieces:", live)
@@ -233,31 +265,20 @@ export class CanvasComponent implements OnInit {
       // }
 
 
-    let tempErasedLines = []
-
-    if(areLines.length === 2) {
-      for (let i = 0; i < areLines.length; i++) {
-        for(let j = 0; j < bodies.length; j++) {
-          if((areLines[i] === bodies[j].posY) && (bodies[j].dead === true)) {
-            tempErasedLines.push(bodies.indexOf(bodies[j]), 1);
-          }
-        }
-      }
-      return console.log("Erased lines:", tempErasedLines)
-    }
 
 
-  for (let i = 0; i < moveArray.length; i++) {
-    console.log("Move array:", moveArray)
-    if (moveArray[i] === null) {
-      break;
-    } else {
-      bodies[bodies.indexOf(moveArray[i])].posY += 50;
-      if (i === moveArray.length - 1) {
-        moveArray.length = 0;
-      }
-    }
-  }
+
+  // for (let i = 0; i < moveArray.length; i++) {
+  //   console.log("Move array:", moveArray)
+  //   if (moveArray[i] === null) {
+  //     break;
+  //   } else {
+  //     bodies[bodies.indexOf(moveArray[i])].posY += 50;
+  //     if (i === moveArray.length - 1) {
+  //       moveArray.length = 0;
+  //     }
+  //   }
+  // }
 
 // console.log("Lines:", linesOfArray)
 
