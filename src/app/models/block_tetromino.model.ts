@@ -3,11 +3,9 @@ import * as p5 from 'p5';
 
 export class BlockTetromino {
   [x: string]: any;
-  constructor(x, y, w, h) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.w = 50;
-    this.h = 50;
     this.posX = 200;
     this.posY = -50;
     this.id = 0;
@@ -16,10 +14,11 @@ export class BlockTetromino {
 
   test(p5) {
     let testArray = [];
-    testArray.push(new SquareTetromino(this.posX,this.posY,this.w,this.h));
-    testArray.push(new SquareTetromino(this.posX - 50,this.posY,this.w,this.h));
-    testArray.push(new SquareTetromino(this.posX - 50,this.posY + 50,this.w,this.h));
-    testArray.push(new SquareTetromino(this.posX,this.posY + 50,this.w,this.h));
+    testArray.push(new SquareTetromino(200,-50,50,50,200,-50));
+    testArray.push(new SquareTetromino(150,-50,50,50,150,-50));
+    testArray.push(new SquareTetromino(200,0,50,50,200,0));
+    testArray.push(new SquareTetromino(150,0,50,50,150,0));
+    console.log(testArray)
     return testArray;
   }
 
@@ -39,10 +38,12 @@ export class BlockTetromino {
   }
 
   moveDown(p5, bodies) {
-    if (!(this.hit(p5, bodies, 0, 50))) {
-      this.posY += 50
-      return true;
-    } else return false;
+    for(let i = 0; i < 4; i++) {
+      if (!(this.hit(p5, bodies, 0, 50))) {
+        this.posY += 50
+        return true;
+      } else return false;
+    }
   }
 
   moveLeft(p5, bodies) {

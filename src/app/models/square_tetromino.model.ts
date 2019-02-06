@@ -2,13 +2,13 @@ import * as p5 from 'p5';
 
 export class SquareTetromino {
   [x: string]: any;
-  constructor(x, y, w, h) {
+  constructor(x, y, w, h, posX, posY) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.posX = 200;
-    this.posY = -50;
+    this.posX = posX;
+    this.posY = posY;
     this.id = 0;
     this.dead = false;
   }
@@ -18,6 +18,7 @@ export class SquareTetromino {
      p5.translate(this.posX, this.posY);
      // p5.rectMode(p5.CENTER);
      p5.fill("#D8B6FF")
+     p5.stroke('black')
      p5.rect(0,0,this.w, this.h);
      p5.pop();
 

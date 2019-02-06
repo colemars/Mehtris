@@ -31,6 +31,7 @@ export class CanvasComponent implements OnInit {
       }
 
 
+
       s.setup = () => {
 
         //builds p5 canvas
@@ -40,8 +41,17 @@ export class CanvasComponent implements OnInit {
         canvas.position(x,y);
         // s.background(255, 0, 200);
 
-        bodies.push(new BlockTetromino(200,-50,50,50).test(s))
-        // bodies.test()
+        // let blocks = this.body.test(s);
+        //
+        // for(let i = 0; i <= 4; i++) {
+        //   bodies.push(blocks)
+        // }
+
+        for(let i = 0; i < 4; i++) {
+          bodies.push(new BlockTetromino(200, 100).test(s)[i])
+          console.log(bodies[i])
+        }
+
 
         // bodies.push(new SquareTetromino(200,-50,50,50))
         // downward tick
@@ -68,7 +78,7 @@ export class CanvasComponent implements OnInit {
         if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
           this.body.dead = true;
           count++;
-          bodies.push(new SquareTetromino(200,-50,50,50))
+          // bodies.push(new SquareTetromino(200,-50,50,50))
           this.body.id += count;
 
         }
