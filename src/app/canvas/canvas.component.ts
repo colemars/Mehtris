@@ -22,13 +22,16 @@ export class CanvasComponent implements OnInit {
     square,
     bodies = [],
     count = 0,
+//------------------------------------------------------------- inserted by Bob
     font,
     fontsize = 40;
-
+//------------------------------------------------------------- inserted by Bob
     const sketch = (s) => {
 
       s.preload = () => {
+//------------------------------------------------------------- inserted by Bob
         font = s.loadFont('../assets/SourceSansPro-Regular.otf');
+//------------------------------------------------------------- inserted by Bob
       }
 
       s.setup = () => {
