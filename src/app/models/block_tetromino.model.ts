@@ -10,6 +10,9 @@ export class BlockTetromino {
     this.posY = -50;
     this.id = 0;
     this.dead = false;
+    this.collidedRight = false;
+    this.collidedLeft = false;
+    this.collidedDown = false;
   }
 
   test(p5) {
