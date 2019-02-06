@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import "p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
 import { SquareTetromino } from '../models/square_tetromino.model'
+import { BlockTetromino } from '../models/block_tetromino.model'
 
 @Component({
   selector: 'app-canvas',
@@ -39,16 +40,19 @@ export class CanvasComponent implements OnInit {
         canvas.position(x,y);
         // s.background(255, 0, 200);
 
-        bodies.push(new SquareTetromino(200,-50,50,50))
+        bodies.push(new BlockTetromino(200,-50,50,50).test(s))
+        // bodies.test()
+
+        // bodies.push(new SquareTetromino(200,-50,50,50))
         // downward tick
-        setInterval(() => {
-          if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
-            this.body.dead = true;
-            count++;
-            bodies.push(new SquareTetromino(200,-50,50,50))
-            this.body.id += count;
-          }
-        }, 250);
+        // setInterval(() => {
+        //   if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
+        //     this.body.dead = true;
+        //     count++;
+        //     bodies.push(new SquareTetromino(200,-50,50,50))
+        //     this.body.id += count;
+        //   }
+        // }, 250);
       }
 
 
@@ -130,7 +134,6 @@ export class CanvasComponent implements OnInit {
       // console.log(posYTrack)
     let linesOfArray = [];
     let moveArray =[]
-    console.log(deadPieceArray.length)
     for (let i = 0; i < AmountOfPosY.length; i++) {
       if (AmountOfPosY[i] === 3) {
         // console.log("Line on Y position:", posYTrack[i])
@@ -150,7 +153,6 @@ export class CanvasComponent implements OnInit {
             // })
           } else {
               moveArray.push(bodies[bodies.indexOf(deadPieceArray[j])])
-              console.log(moveArray)
           }
         }
       }
@@ -167,7 +169,6 @@ export class CanvasComponent implements OnInit {
     for (let i = 0; i < moveArray.length; i++) {
 
       bodies[bodies.indexOf(moveArray[i])].posY += 50;
-      console.log('move',i)
       if (i === moveArray.length - 1) {
         moveArray.length = 0;
       }
