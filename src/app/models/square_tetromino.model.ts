@@ -7,8 +7,8 @@ export class SquareTetromino {
     this.y = y;
     this.w = w;
     this.h = h;
-    this.posX = 50;
-    this.posY = 50;
+    this.posX = 200;
+    this.posY = -50;
     this.id = 0;
     this.dead = false;
   }
