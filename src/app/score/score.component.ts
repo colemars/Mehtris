@@ -1,7 +1,9 @@
 import { Component, Input, Output, OnInit } from '@angular/core';
 import { Score } from '../models/score.model'
-import "p5/lib/addons/p5.dom";
+import "../../../node_modules/p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
+
+
 
 @Component({
   selector: 'app-score',

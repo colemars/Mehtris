@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //required to include scripts in angular.cli and types in tsconfig
-import "p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
+import "../../../node_modules/p5/lib/addons/p5.dom";
 import { SquareTetromino } from '../models/square_tetromino.model'
 
 @Component({
@@ -21,14 +21,15 @@ export class CanvasComponent implements OnInit {
     let canvas,
     square,
     bodies = [],
-    count = 0;
+    count = 0,
+    font,
+    fontsize = 40;
 
     const sketch = (s) => {
 
       s.preload = () => {
-
+        font = s.loadFont('../assets/SourceSansPro-Regular.otf');
       }
-
 
       s.setup = () => {
 
@@ -49,7 +50,14 @@ export class CanvasComponent implements OnInit {
             this.body.id += count;
           }
         }, 250);
+//------------------------------------------------------------- inserted by Bob
+        // Set text characteristics
+        s.textFont(font);
+        s.textSize(fontsize);
+        s.textAlign(s.CENTER, s.CENTER);
+//------------------------------------------------------------- inserted by Bob
       }
+
 
 
       s.keyPressed = () => {
@@ -77,6 +85,22 @@ export class CanvasComponent implements OnInit {
       s.background('#7FB28A');
       s.noStroke(255);
 
+//------------------------------------------------------------- inserted by Bob
+      // Align the text to the right
+      // and run drawWords() in the left third of the canvas
+      s.textAlign(s.RIGHT);
+      drawWords(s.width * 0.25);
+
+      // Align the text in the center
+      // and run drawWords() in the middle of the canvas
+      s.textAlign(s.CENTER);
+      drawWords(s.width * 0.5);
+
+      // Align the text to the left
+      // and run drawWords() in the right third of the canvas
+      s.textAlign(s.LEFT);
+      drawWords(s.width * 0.6);
+//------------------------------------------------------------- inserted by Bob
 
       for (let i = 0; i < bodies.length; i++) {
         bodies[i].show(s)
@@ -100,7 +124,25 @@ export class CanvasComponent implements OnInit {
 
     let deadPiecePosY = [];
     let deadPieceId = [];
+    let xyz;
+//------------------------------------------------------------- inserted by Bob
+    function drawWords(x) {
+      // The text() function needs three parameters:
+      // the text to draw, the horizontal position,
+      // and the vertical position
+      s.fill(0);
+      s.text('ichi', x, 80);
 
+      s.fill(65);
+      s.text('ni', x, 150);
+
+      s.fill(190);
+      s.text('san', x, 220);
+
+      s.fill(255);
+      s.text('shi', x, 290);
+    }
+//------------------------------------------------------------- inserted by Bob
     function sortNumbers(a, b) {
       return a - b;
     }
