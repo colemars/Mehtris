@@ -12,6 +12,7 @@ export class Test {
 		this.blocks.push(new TestBlock(x + blockW, y, blockW));
 		this.blocks.push(new TestBlock(x, y + blockW, blockW));
 		this.blocks.push(new TestBlock(x + blockW, y + blockW, blockW));
+    this.leftValue = 0;
 	}
 
 	show(p5) {
@@ -41,7 +42,7 @@ export class Test {
 
   moveLeft() {
     this.collidedRight = false;
-    console.log(this.collidedLeft)
+    // console.log(this.collidedLeft)
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedLeft === false) && (this.blocks[i].x >= 0)) {
         this.blocks[i].x -= 50
@@ -75,11 +76,11 @@ export class Test {
           let row = gameArray[z]
           // console.log(row[0])
           for (let j = 0; j < row.length-1; j++) {
-            let position = row[j+1];
+            let position = row[j];
             if (block.y+50 === position[2] && block.x === position[1]) {
               if (position[0] === 0) {
                 value += 1
-                console.log(value)
+                // console.log(value)
               }
             }
           }
@@ -87,6 +88,74 @@ export class Test {
       })
     }
     if (value === 2) {
+      return true;
+
+    }
+  }
+
+  noHitLeft(bodies, gameArray) {
+    let value = 0
+    for (let i = 0; i < bodies.length; i++) {
+      this.blocks.forEach((block) => {
+        for (let z = 0; z < gameArray.length; z ++) {
+          let row = gameArray[z]
+          // console.log(row[0])
+          // debugger;
+          for (let j = 0; j < row.length; j++) {
+            let position = row[j];
+            let futurePos = row[j-1]
+            if (position[1] != 0) {
+               // console.log(block.y, block.x)
+              if (block.y === position[2] && block.x === position[1]) {
+                // console.log('hit')
+                if (futurePos[0] === 0) {
+                  // console.log(position)
+                  // console.log('future',futurePos)
+                  value += 1;
+                  // console.log(value)
+                }
+              }
+            }
+          }
+        }
+      })
+    }
+    // console.log(bodies.length)
+    if (value === 2*bodies.length) {
+      return true;
+
+    }
+  }
+
+  noHitRight(bodies, gameArray) {
+    let value = 0
+    for (let i = 0; i < bodies.length; i++) {
+      this.blocks.forEach((block) => {
+        for (let z = 0; z < gameArray.length; z ++) {
+          let row = gameArray[z]
+          // console.log(row[0])
+          // debugger;
+          for (let j = 0; j < row.length; j++) {
+            let position = row[j];
+            let futurePos = row[j+1]
+            if (position[1] != 0) {
+               // console.log(block.y, block.x)
+              if (block.y === position[2] && block.x === position[1]) {
+                // console.log('hit')
+                if (futurePos[0] === 0) {
+                  // console.log(position)
+                  // console.log('future',futurePos)
+                  value += 1;
+                  // console.log(value)
+                }
+              }
+            }
+          }
+        }
+      })
+    }
+    // console.log(bodies.length)
+    if (value === 2*bodies.length) {
       return true;
 
     }
