@@ -67,4 +67,29 @@ export class Test {
     }
   }
 
+  noHitDown(bodies, gameArray) {
+    let value = 0
+    for (let i = 0; i < bodies.length; i++) {
+      bodies[i].blocks.forEach((block) => {
+        for (let z = 0; z < gameArray.length; z ++) {
+          let row = gameArray[z]
+          // console.log(row[0])
+          for (let j = 0; j < row.length-1; j++) {
+            let position = row[j+1];
+            if (block.y+50 === position[2] && block.x === position[1]) {
+              if (position[0] === 0) {
+                value += 1
+                console.log(value)
+              }
+            }
+          }
+        }
+      })
+    }
+    if (value === 2) {
+      return true;
+
+    }
+  }
+
 }

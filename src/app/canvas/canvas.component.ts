@@ -81,6 +81,9 @@ export class CanvasComponent implements OnInit {
       } else if (s.keyCode === s.LEFT_ARROW) {
         this.body.moveLeft()
       } else if(s.keyCode === s.DOWN_ARROW) {
+        if (this.body.noHitDown(bodies, gameArray)) {
+          this.body.moveDown()
+        }
         // for (let i = 0; i < bodies.length; i++) {
         //   // bodies[i].blocks.forEach((block => {
         //   //   gameArray.forEach((row) => {
@@ -93,28 +96,28 @@ export class CanvasComponent implements OnInit {
         //   // }))
         //     // console.log(gameArray)
         // }
-        let value = 0
-        for (let i = 0; i < bodies.length; i++) {
-          bodies[i].blocks.forEach((block) => {
-            for (let z = 0; z < gameArray.length; z ++) {
-              let row = gameArray[z]
-              // console.log(row[0])
-              for (let j = 0; j < row.length-1; j++) {
-                let position = row[j+1];
-                if (block.y+50 === position[2] && block.x === position[1]) {
-                    if (position[0] === 0) {
-                      value += 1
-                      console.log(value)
-                    }
-                  }
-              }
-            }
-          })
-        }
-        if (value === 2) {
-          this.body.moveDown()
-
-        }
+        // let value = 0
+        // for (let i = 0; i < bodies.length; i++) {
+        //   bodies[i].blocks.forEach((block) => {
+        //     for (let z = 0; z < gameArray.length; z ++) {
+        //       let row = gameArray[z]
+        //       // console.log(row[0])
+        //       for (let j = 0; j < row.length-1; j++) {
+        //         let position = row[j+1];
+        //         if (block.y+50 === position[2] && block.x === position[1]) {
+        //             if (position[0] === 0) {
+        //               value += 1
+        //               console.log(value)
+        //             }
+        //           }
+        //       }
+        //     }
+        //   })
+        // }
+        // if (value === 2) {
+        //   this.body.moveDown()
+        //
+        // }
         // console.log(bodies)
       }
 
