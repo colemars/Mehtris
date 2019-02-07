@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import "p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
 import { SquareTetromino } from '../models/square_tetromino.model'
+import { Test } from '../models/test.model'
 
 @Component({
   selector: 'app-canvas',
@@ -39,20 +40,43 @@ export class CanvasComponent implements OnInit {
         canvas.position(x,y);
         // s.background(255, 0, 200);
 
-        bodies.push(new SquareTetromino(200,-50,50,50))
+        // bodies.push(new SquareTetromino(200,-50,50,50))
+          bodies.push(new Test(100, 100, 100));
+          // bodies.push(new Test(300, 100, 100));
         // downward tick
-        setInterval(() => {
-          if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
-            this.body.dead = true;
-            count++;
-            bodies.push(new SquareTetromino(200,-50,50,50))
-            this.body.id += count;
-          }
-        }, 250);
+        // setInterval(() => {
+        //   if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
+        //     this.body.dead = true;
+        //     count++;
+        //     bodies.push(new SquareTetromino(200,-50,50,50))
+        //     this.body.id += count;
+        //   }
+        // }, 250);
       }
 
-
       s.keyPressed = () => {
+        let gameArray = []
+        // console.log(s.height/10)
+        for(let i=0; i<20; i++){
+          gameArray.push([[0,0,s.height/20*i],[0, 50,s.height/20*i],[0, 100,s.height/20*i],[0, 150,s.height/20*i],[0, 200,s.height/20*i],[0, 250,s.height/20*i],[0, 300,s.height/20*i],[0, 350,s.height/20*i],[0, 400,s.height/20*i],[0, 450,s.height/20*i]]);
+
+
+        }
+
+      for (let i = 0; i < bodies.length; i++) {
+        bodies[i].blocks.forEach((block => {
+          gameArray.forEach((row) => {
+              row.forEach((position) => {
+                  if (block.y === position[2] && block.x === position[1]) {
+                    position[0] = 1;
+                }
+            // if (bodies[i].y === row[2]) {
+            })
+      })
+    }))
+      console.log(gameArray)
+  }
+
         //moves piece within boundaries
         if((s.keyCode === s.RIGHT_ARROW) && (this.body.posX <= 400)) {
         if (!(this.body.moveRight(s, bodies))) {
@@ -60,14 +84,20 @@ export class CanvasComponent implements OnInit {
       } else if ((s.keyCode === s.LEFT_ARROW) && (this.body.posX >= 50)) {
         if (!(this.body.moveLeft(s, bodies))) {
         }
-      } else if((s.keyCode === s.DOWN_ARROW) && (this.body.posY <= 900)) {
-        if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
-          this.body.dead = true;
-          count++;
-          bodies.push(new SquareTetromino(200,-50,50,50))
-          this.body.id += count;
-
-        }
+      } else if(s.keyCode === s.DOWN_ARROW) {
+        // console.log(bodies)
+          for (let i = 0; i < bodies[0].blocks.length; i++) {
+            if (bodies[0].dead === false) {
+              bodies[0].blocks[i].y += 50
+            }
+          }
+        // if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
+        //   this.body.dead = true;
+        //   count++;
+        //   bodies.push(new SquareTetromino(200,-50,50,50))
+        //   this.body.id += count;
+        //
+        // }
       }
 
     }
@@ -130,7 +160,7 @@ export class CanvasComponent implements OnInit {
       // console.log(posYTrack)
     let linesOfArray = [];
     let moveArray =[]
-    console.log(deadPieceArray.length)
+    // console.log(deadPieceArray.length)
     for (let i = 0; i < AmountOfPosY.length; i++) {
       if (AmountOfPosY[i] === 3) {
         // console.log("Line on Y position:", posYTrack[i])
