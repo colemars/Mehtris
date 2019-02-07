@@ -14,6 +14,7 @@ export class SquareTetromino {
     this.collidedRight = false;
     this.collidedLeft = false;
     this.collidedDown = false;
+    this.stop = false;
   }
 
   show(p5) {
@@ -29,6 +30,7 @@ export class SquareTetromino {
 
   moveDown(p5, bodies) {
     if (!(this.hit(p5, bodies, 0, 50))) {
+      console.log('move')
       this.posY += 50
       return true;
     } else return false;
@@ -49,11 +51,13 @@ export class SquareTetromino {
   }
 
   hit(p5, bodies, side, down) {
+    console.log("test")
     if (this.dead === false) {
       for (let i = 0; i < bodies.length; i++) {
-        if (bodies[i].id != this.id) {
+        if ((bodies[i].id != this.id) && (bodies[i].dead === true)) {
+          console.log("Block to be hit Y pos:", this.posY)
           if((this.posX + side < bodies[i].posX + bodies[i].w) && (this.posX + side + this.w > bodies[i].posX) && (this.posY + down < bodies[i].posY + bodies[i].h) && (this.posY + down + this.h > bodies[i].posY)) {
-             console.log("hit")
+            console.log("Bodies on hit", bodies)
              return true;
             }
           }

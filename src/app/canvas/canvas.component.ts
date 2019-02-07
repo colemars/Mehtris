@@ -77,17 +77,34 @@ export class CanvasComponent implements OnInit {
         //moves piece within boundaries
         for(let i=0; i < live.length; i++) {
 
+        for (let i = 0; i < live.length; i++) {
+          if (live[i].stop === true) {
+            for (let j = 0; j < live.length; j++) {
+              live[j].stop = true;
+            }
+          }
+        }
+
         if((s.keyCode === s.RIGHT_ARROW) && (live[i].collidedRight != true) && (live[i].dead != true)) {
 
           live[i].moveRight(s, live[i])
         } else if ((s.keyCode === s.LEFT_ARROW) && (live[i].collidedLeft != true) && (live[i].dead != true)) {
           live[i].moveLeft(s, live[i])
-        } else if((s.keyCode === s.DOWN_ARROW) && (live[i].collidedDown != true) && (live[i].dead != true)) {
-          live[i].moveDown(s, live[i])
+        } else if((s.keyCode === s.DOWN_ARROW) && (live[i].stop != true) && (live[i].dead != true)) {
+          console.log(live)
+          live[i].moveDown(s, bodies)
+          for (let j = 0; j < live.length; j++) {
+            if(live[j].hit(s, bodies)) {
+              console.log("stop")
+            }
+          }
+          // live[i].hit(bodies)
+
+            // live[i].collidedDown = true;
             // live[i].dead = true;
-            // count++;
-            // // bodies.push(new SquareTetromino(200,-50,50,50))
-            // live[i].id += count;
+            // live[i].collidedRight = false;
+            // live[i].collidedLeft = false;
+
           }
           // console.log("Right:", live[i].collidedRight)
           // console.log("Left:", live[i].collidedLeft)
@@ -129,9 +146,9 @@ export class CanvasComponent implements OnInit {
           }
           if(live[i].dead === true) {
             live.length = 0;
-            // for(let y = 0; y < bodies.length; y++) {
-            //   bodies[y].dead = true;
-            // }
+            for(let y = 0; y < bodies.length; y++) {
+              bodies[y].dead = true;
+            }
             for(let j = 0; j < 4; j++) {
               bodies.push(new BlockTetromino(200, 100).test(s)[j])
             }
@@ -188,7 +205,7 @@ export class CanvasComponent implements OnInit {
       let areLines = [];
 
       for (let i = 0; i < AmountOfPosY.length; i++) {
-        if (AmountOfPosY[i] === 4) {
+        if (AmountOfPosY[i] >= 4) {
 
           // console.log("Line on Y position:", posYTrack[i])
           let line = posYTrack[i]
@@ -220,6 +237,14 @@ export class CanvasComponent implements OnInit {
         }
 
         for (let i = 0; i < bodies.length; i++) {
+          bodies[i].id = i
+        }
+
+
+
+
+
+        for (let i = 0; i < bodies.length; i++) {
           if (bodies[i].dead === false) {
             this.body = bodies[i]
           }
@@ -228,11 +253,13 @@ export class CanvasComponent implements OnInit {
       for (let i = 0; i < moveArray.length; i++) {
 
       bodies[bodies.indexOf(moveArray[i])].posY += 50;
-      console.log('move',i)
+      // console.log('move',i)
       if (i === moveArray.length - 1) {
         moveArray.length = 0;
       }
     }
+
+
 
 
 
