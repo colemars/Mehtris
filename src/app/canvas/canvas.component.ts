@@ -4,6 +4,12 @@ import "p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
 import { SquareTetromino } from '../models/square_tetromino.model'
 import { Test } from '../models/test.model'
+import { LBlock } from '../models/l.model'
+import { EllBlock } from '../models/ell.model'
+import { AntiEllBlock } from '../models/anti-ell.model'
+import { ZBlock } from '../models/z.model'
+import { SBlock } from '../models/s.model'
+import { TBlock } from '../models/t.model'
 
 @Component({
   selector: 'app-canvas',
@@ -40,9 +46,24 @@ export class CanvasComponent implements OnInit {
         canvas.position(x,y);
         // s.background(255, 0, 200);
 
-        // bodies.push(new SquareTetromino(200,-50,50,50))
-          bodies.push(new Test(100, 100, 100));
-          // bodies.push(new Test(300, 100, 100));
+          bodies.push(new ZBlock(100, 100, 100))
+          // let pieceNumber = Math.floor((Math.random() * 7) + 1);
+          // if (pieceNumber === 1) {
+          //   bodies.push(new Test(100, 100, 100));
+          // } else if (pieceNumber === 2) {
+          //   bodies.push(new LBlock(100, 100, 100))
+          // } else if (pieceNumber === 3) {
+          //   bodies.push(new ZBlock(100, 100, 100))
+          // } else if (pieceNumber === 4) {
+          //   bodies.push(new SBlock(100, 100, 100))
+          // } else if (pieceNumber === 5) {
+          //   bodies.push(new EllBlock(100, 100, 100))
+          // } else if (pieceNumber === 6) {
+          //   bodies.push(new AntiEllBlock(100, 100, 100))
+          // } else if (pieceNumber === 7) {
+          //   bodies.push(new TBlock(100, 100, 100))
+          // }
+
         // downward tick
         // setInterval(() => {
         //   if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
@@ -81,6 +102,7 @@ export class CanvasComponent implements OnInit {
       } else if (s.keyCode === s.LEFT_ARROW) {
         this.body.moveLeft()
       } else if(s.keyCode === s.DOWN_ARROW) {
+        this.body.rotateClockwise(this.body.x, this.body.y)
         // for (let i = 0; i < bodies.length; i++) {
         //   // bodies[i].blocks.forEach((block => {
         //   //   gameArray.forEach((row) => {
@@ -111,10 +133,10 @@ export class CanvasComponent implements OnInit {
             }
           })
         }
-        if (value === 2) {
-          this.body.moveDown()
-
-        }
+        // if ((value === 1) || (value === 2)){
+        //   this.body.moveDown()
+        //
+        // }
         // console.log(bodies)
       }
 
@@ -148,6 +170,7 @@ export class CanvasComponent implements OnInit {
 
 
     s.draw = () => {
+
       s.background('#7FB28A');
       s.noStroke(255);
 
@@ -167,7 +190,22 @@ export class CanvasComponent implements OnInit {
       this.body.borderCheck();
 
       if (this.body.dead === true) {
-        bodies.push(new Test(100, 100, 100));
+        let pieceNumber = Math.floor((Math.random() * 7) + 1);
+        if (pieceNumber === 1) {
+          bodies.push(new Test(100, 100, 100));
+        } else if (pieceNumber === 2) {
+          bodies.push(new LBlock(100, 100, 100))
+        } else if (pieceNumber === 3) {
+          bodies.push(new ZBlock(100, 100, 100))
+        } else if (pieceNumber === 4) {
+          bodies.push(new SBlock(100, 100, 100))
+        } else if (pieceNumber === 5) {
+          bodies.push(new EllBlock(100, 100, 100))
+        } else if (pieceNumber === 6) {
+          bodies.push(new AntiEllBlock(100, 100, 100))
+        } else if (pieceNumber === 7) {
+          bodies.push(new TBlock(100, 100, 100))
+        }
       }
 
       ///I dont know what is going on below here

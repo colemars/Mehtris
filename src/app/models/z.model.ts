@@ -1,22 +1,23 @@
 import { TestBlock } from './test_block.model'
 
-export class Test {
+export class ZBlock {
   [x: string]: any;
 	constructor(x, y, w) {
     this.dead = false;
     this.collidedRight = false;
     this.collidedLeft = false;
 		this.blocks = [];
-		const blockW = w / 2;
+		const blockW = 50;
 		this.blocks.push(new TestBlock (x, y, blockW));
-		this.blocks.push(new TestBlock(x + blockW, y, blockW));
-		this.blocks.push(new TestBlock(x, y + blockW, blockW));
-		this.blocks.push(new TestBlock(x + blockW, y + blockW, blockW));
+		this.blocks.push(new TestBlock(x + 50, y, blockW));
+		this.blocks.push(new TestBlock(x + 50, y + 50, blockW));
+		this.blocks.push(new TestBlock(x + 100, y + 50, blockW));
+    this.tickClock = 0
 	}
 
 	show(p5) {
 		p5.push();
-    p5.fill('yellow')
+    p5.fill('blue')
 		for (const block of this.blocks) {
 			block.show(p5);
 		}
@@ -48,6 +49,43 @@ export class Test {
         this.blocks[i].x -= 50
       }
     }
+  }
+
+  rotateClockwise(x, y) {
+
+      console.log("Tick", this.tickClock)
+      if (this.tickClock === 0) {
+        this.blocks[0].x += 50;
+        this.blocks[0].y -= 50;
+        this.blocks[2].x -= 50;
+        this.blocks[2].y -= 50;
+        this.blocks[3].x -= 100;
+        this.tickClock++
+        console.log("Tick in If", this.tickClock)
+      } else if (this.tickClock === 1) {
+        this.blocks[0].x += 50;
+        this.blocks[0].y += 50;
+        this.blocks[2].x += 50;
+        this.blocks[2].y -= 50;
+        this.blocks[3].y -= 100
+        this.tickClock++
+      } else if (this.tickClock === 2) {
+        this.blocks[0].x -= 50;
+        this.blocks[0].y += 50;
+        this.blocks[2].x += 50;
+        this.blocks[2].y += 50;
+        this.blocks[3].x += 100;
+        this.tickClock++
+      } else if (this.tickClock === 3) {
+        this.blocks[0].x -= 50;
+        this.blocks[0].y -= 50;
+        this.blocks[2].x -= 50;
+        this.blocks[2].y += 50;
+        this.blocks[3].y += 100;
+        this.tickClock = 0;
+      }
+
+
   }
 
   borderCheck(bodies) {

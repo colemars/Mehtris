@@ -8,7 +8,7 @@ export class TestBlock {
 	}
 
 	show(p5) {
-    p5.fill('blue')
+    
     p5.stroke('black')
 		p5.rect(this.x, this.y, this.w, this.h);
 	}

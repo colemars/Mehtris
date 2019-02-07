@@ -1,22 +1,22 @@
 import { TestBlock } from './test_block.model'
 
-export class Test {
+export class EllBlock {
   [x: string]: any;
 	constructor(x, y, w) {
     this.dead = false;
     this.collidedRight = false;
     this.collidedLeft = false;
 		this.blocks = [];
-		const blockW = w / 2;
+		const blockW = 50;
 		this.blocks.push(new TestBlock (x, y, blockW));
-		this.blocks.push(new TestBlock(x + blockW, y, blockW));
-		this.blocks.push(new TestBlock(x, y + blockW, blockW));
-		this.blocks.push(new TestBlock(x + blockW, y + blockW, blockW));
+		this.blocks.push(new TestBlock(x, y - 50, blockW));
+		this.blocks.push(new TestBlock(x, y - 100, blockW));
+		this.blocks.push(new TestBlock(x + 50, y, blockW));
 	}
 
 	show(p5) {
 		p5.push();
-    p5.fill('yellow')
+    p5.fill('orange')
 		for (const block of this.blocks) {
 			block.show(p5);
 		}
