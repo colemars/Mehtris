@@ -79,21 +79,12 @@ export class CanvasComponent implements OnInit {
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
-          bodies[0].moveRight()
+          this.body.moveRight()
       } else if (s.keyCode === s.LEFT_ARROW) {
-        bodies[0].moveLeft()
+        this.body.moveLeft()
       } else if(s.keyCode === s.DOWN_ARROW) {
         // console.log(bodies)
-
-        bodies[0].moveDown()
-
-        // if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
-        //   this.body.dead = true;
-        //   count++;
-        //   bodies.push(new SquareTetromino(200,-50,50,50))
-        //   this.body.id += count;
-        //
-        // }
+        this.body.moveDown()
       }
 
     }
@@ -114,6 +105,19 @@ export class CanvasComponent implements OnInit {
           this.body = bodies[i];
         }
       }
+
+      if (this.body.dead === true) {
+        bodies.push(new Test(100, 100, 100));
+      }
+
+      ///I dont know what is going on below here
+      ///
+      ///
+      ///
+      //
+      //
+      //
+      //
 
       let deadPieceArray = [];
       let deadPieceSortedArray = [];
