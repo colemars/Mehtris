@@ -98,11 +98,21 @@ export class CanvasComponent implements OnInit {
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
-          this.body.moveRight()
+          if (this.body.noHitRight(bodies, gameArray)) {
+            this.body.moveRight()
+          }
       } else if (s.keyCode === s.LEFT_ARROW) {
-        this.body.moveLeft()
+        if (this.body.noHitLeft(bodies, gameArray)) {
+          this.body.moveLeft()
+        }
       } else if(s.keyCode === s.DOWN_ARROW) {
+
         this.body.rotateClockwise(this.body.x, this.body.y)
+
+        if (this.body.noHitDown(bodies, gameArray)) {
+          this.body.moveDown()
+        } else this.body.dead = true;
+
         // for (let i = 0; i < bodies.length; i++) {
         //   // bodies[i].blocks.forEach((block => {
         //   //   gameArray.forEach((row) => {
@@ -115,25 +125,27 @@ export class CanvasComponent implements OnInit {
         //   // }))
         //     // console.log(gameArray)
         // }
-        let value = 0
-        for (let i = 0; i < bodies.length; i++) {
-          bodies[i].blocks.forEach((block) => {
-            for (let z = 0; z < gameArray.length; z ++) {
-              let row = gameArray[z]
-              // console.log(row[0])
-              for (let j = 0; j < row.length-1; j++) {
-                let position = row[j+1];
-                if (block.y+50 === position[2] && block.x === position[1]) {
-                    if (position[0] === 0) {
-                      value += 1
-                      console.log(value)
-                    }
-                  }
-              }
-            }
-          })
-        }
-        // if ((value === 1) || (value === 2)){
+
+        // let value = 0
+        // for (let i = 0; i < bodies.length; i++) {
+        //   bodies[i].blocks.forEach((block) => {
+        //     for (let z = 0; z < gameArray.length; z ++) {
+        //       let row = gameArray[z]
+        //       // console.log(row[0])
+        //       for (let j = 0; j < row.length-1; j++) {
+        //         let position = row[j+1];
+        //         if (block.y+50 === position[2] && block.x === position[1]) {
+        //             if (position[0] === 0) {
+        //               value += 1
+        //               console.log(value)
+        //             }
+        //           }
+        //       }
+        //     }
+        //   })
+        // }
+        // if (value === 2) {
+
         //   this.body.moveDown()
         //
         // }
@@ -149,7 +161,7 @@ export class CanvasComponent implements OnInit {
         })
       })
 
-      console.log(gameArray)
+      // console.log(gameArray)
   for (let i = 0; i < bodies.length; i++) {
     bodies[i].blocks.forEach((block) => {
       for (let z = 0; z < gameArray.length; z ++) {
@@ -159,7 +171,7 @@ export class CanvasComponent implements OnInit {
           let position = row[j+1];
           if (block.y+50 === position[2] && block.x === position[1]) {
               if (position[0] === 0) {
-                console.log(position)
+                // console.log(position)
               }
             }
         }
