@@ -87,17 +87,20 @@ export class CanvasComponent implements OnInit {
 
         if((s.keyCode === s.RIGHT_ARROW) && (live[i].collidedRight != true) && (live[i].dead != true)) {
 
-          live[i].moveRight(s, live[i])
+          live[i].moveRight(s, live[i], bodies)
         } else if ((s.keyCode === s.LEFT_ARROW) && (live[i].collidedLeft != true) && (live[i].dead != true)) {
-          live[i].moveLeft(s, live[i])
+          live[i].moveLeft(s, live[i], bodies)
         } else if((s.keyCode === s.DOWN_ARROW) && (live[i].stop != true) && (live[i].dead != true)) {
           console.log(live)
-          live[i].moveDown(s, bodies)
-          for (let j = 0; j < live.length; j++) {
-            if(live[j].hit(s, bodies)) {
-              console.log("stop")
-            }
-          }
+          live[i].moveDown(s, live[i], bodies)
+          live[i].hit(s, live[i], bodies)
+
+
+          // for (let j = 0; j < live.length; j++) {
+          //   if(live[j].hit(s, bodies)) {
+          //     console.log("stop")
+          //   }
+          // }
           // live[i].hit(bodies)
 
             // live[i].collidedDown = true;

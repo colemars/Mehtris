@@ -28,38 +28,41 @@ export class SquareTetromino {
 
   }
 
-  moveDown(p5, bodies) {
-    if (!(this.hit(p5, bodies, 0, 50))) {
+  moveDown(p5, live, bodies) {
+    if (!(this.hit(p5, live, 0, 50))) {
       console.log('move')
       this.posY += 50
       return true;
     } else return false;
   }
 
-  moveLeft(p5, bodies) {
-    if (!(this.hit(p5, bodies, -50, 0))) {
+  moveLeft(p5, live, bodies) {
+    if (!(this.hit(p5, live, -50, 0))) {
       this.posX -= 50
       return true;
     } else return false;
   }
 
-  moveRight(p5, bodies) {
-    if (!(this.hit(p5, bodies, 50, 0))) {
+  moveRight(p5, live, bodies) {
+    if (!(this.hit(p5, live, 50, 0))) {
       this.posX += 50
       return true;
     } else return false;
   }
 
-  hit(p5, bodies, side, down) {
+  hit(p5, live, bodies, w = 50, h = 50) {
     console.log("test")
-    if (this.dead === false) {
+    if (live.dead === false) {
       for (let i = 0; i < bodies.length; i++) {
-        if ((bodies[i].id != this.id) && (bodies[i].dead === true)) {
-          console.log("Block to be hit Y pos:", this.posY)
-          if((this.posX + side < bodies[i].posX + bodies[i].w) && (this.posX + side + this.w > bodies[i].posX) && (this.posY + down < bodies[i].posY + bodies[i].h) && (this.posY + down + this.h > bodies[i].posY)) {
+        if ((bodies[i].id != live.id) && (bodies[i].dead === true)) {
+          console.log("Block to be hit Y pos:", live.posY)
+          if((live.posX + w < bodies[i].posX + bodies[i].w) && (live.posX + w + live.w > bodies[i].posX) && (live.posY + h < bodies[i].posY + bodies[i].h) && (live.posY + h + live.h > bodies[i].posY)) {
             console.log("Bodies on hit", bodies)
+            live.stop = true;
              return true;
-            }
+           } else {
+             live.stop = false;
+           }
           }
         }
       }
