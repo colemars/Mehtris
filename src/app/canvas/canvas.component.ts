@@ -59,23 +59,21 @@ export class CanvasComponent implements OnInit {
         // console.log(s.height/10)
         for(let i=0; i<20; i++){
           gameArray.push([[0,0,s.height/20*i],[0, 50,s.height/20*i],[0, 100,s.height/20*i],[0, 150,s.height/20*i],[0, 200,s.height/20*i],[0, 250,s.height/20*i],[0, 300,s.height/20*i],[0, 350,s.height/20*i],[0, 400,s.height/20*i],[0, 450,s.height/20*i]]);
-
-
         }
 
       for (let i = 0; i < bodies.length; i++) {
         bodies[i].blocks.forEach((block => {
           gameArray.forEach((row) => {
               row.forEach((position) => {
+                // console.log(position)
                   if (block.y === position[2] && block.x === position[1]) {
                     position[0] = 1;
                 }
-            // if (bodies[i].y === row[2]) {
             })
-      })
-    }))
-      console.log(gameArray)
-  }
+          })
+        }))
+          // console.log(gameArray)
+      }
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
@@ -83,11 +81,70 @@ export class CanvasComponent implements OnInit {
       } else if (s.keyCode === s.LEFT_ARROW) {
         this.body.moveLeft()
       } else if(s.keyCode === s.DOWN_ARROW) {
+        // for (let i = 0; i < bodies.length; i++) {
+        //   // bodies[i].blocks.forEach((block => {
+        //   //   gameArray.forEach((row) => {
+        //   //       row.forEach((position) => {
+        //   //           if (block.y === position[2] && block.x === position[1]) {
+        //   //             position[0] = 1;
+        //   //         }
+        //   //     })
+        //   //   })
+        //   // }))
+        //     // console.log(gameArray)
+        // }
+        let value = 0
+        for (let i = 0; i < bodies.length; i++) {
+          bodies[i].blocks.forEach((block) => {
+            for (let z = 0; z < gameArray.length; z ++) {
+              let row = gameArray[z]
+              // console.log(row[0])
+              for (let j = 0; j < row.length-1; j++) {
+                let position = row[j+1];
+                if (block.y+50 === position[2] && block.x === position[1]) {
+                    if (position[0] === 0) {
+                      value += 1
+                      console.log(value)
+                    }
+                  }
+              }
+            }
+          })
+        }
+        if (value === 2) {
+          this.body.moveDown()
+
+        }
         // console.log(bodies)
-        this.body.moveDown()
       }
 
-    }
+      gameArray.forEach((row) => {
+          row.forEach((position) => {
+            // console.log(position)
+              // if (block.y === position[2] && block.x === position[1]) {
+              //   position[0] = 1;
+            // }
+        })
+      })
+
+      console.log(gameArray)
+  for (let i = 0; i < bodies.length; i++) {
+    bodies[i].blocks.forEach((block) => {
+      for (let z = 0; z < gameArray.length; z ++) {
+        let row = gameArray[z]
+        // console.log(row[0])
+        for (let j = 0; j < row.length-1; j++) {
+          let position = row[j+1];
+          if (block.y+50 === position[2] && block.x === position[1]) {
+              if (position[0] === 0) {
+                console.log(position)
+              }
+            }
+        }
+      }
+    })
+  }
+  }
 
 
     s.draw = () => {
@@ -97,8 +154,9 @@ export class CanvasComponent implements OnInit {
 
       for (let i = 0; i < bodies.length; i++) {
         bodies[i].show(s);
-        bodies[i].borderCheck();
       }
+
+
 
       for (let i = 0; i < bodies.length; i++) {
         if (bodies[i].dead === false) {
@@ -106,11 +164,20 @@ export class CanvasComponent implements OnInit {
         }
       }
 
+      this.body.borderCheck();
+
       if (this.body.dead === true) {
         bodies.push(new Test(100, 100, 100));
       }
 
       ///I dont know what is going on below here
+      ///
+      ///
+      ///
+      //
+      //
+      //
+      //
       ///
       ///
       ///

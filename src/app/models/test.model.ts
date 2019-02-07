@@ -53,16 +53,16 @@ export class Test {
     for (let i =0; i < this.blocks.length; i++) {
       if (this.blocks[i].y >= 950) {
         this.dead = true;
-        console.log('hit bottom')
+        // console.log('hit bottom')
       }
       if (this.blocks[i].x >= 450){
         this.collidedRight = true;
-        console.log('hit right')
-        console.log(this.collidedRight)
+        // console.log('hit right')
+        // console.log(this.collidedRight)
       }
       if (this.blocks[i].x <= 0){
         this.collidedLeft = true;
-        console.log('hit left')
+        // console.log('hit left')
       }
     }
   }
