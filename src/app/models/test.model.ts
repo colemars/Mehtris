@@ -17,7 +17,7 @@ export class Test {
 
 	show(p5) {
 		p5.push();
-    p5.fill('yellow')
+    p5.fill('#F6C44B')
 		for (const block of this.blocks) {
 			block.show(p5);
 		}

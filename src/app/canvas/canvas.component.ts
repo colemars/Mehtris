@@ -47,32 +47,7 @@ export class CanvasComponent implements OnInit {
         // s.background(255, 0, 200);
 
           bodies.push(new ZBlock(100, 100, 100))
-          // let pieceNumber = Math.floor((Math.random() * 7) + 1);
-          // if (pieceNumber === 1) {
-          //   bodies.push(new Test(100, 100, 100));
-          // } else if (pieceNumber === 2) {
-          //   bodies.push(new LBlock(100, 100, 100))
-          // } else if (pieceNumber === 3) {
-          //   bodies.push(new ZBlock(100, 100, 100))
-          // } else if (pieceNumber === 4) {
-          //   bodies.push(new SBlock(100, 100, 100))
-          // } else if (pieceNumber === 5) {
-          //   bodies.push(new EllBlock(100, 100, 100))
-          // } else if (pieceNumber === 6) {
-          //   bodies.push(new AntiEllBlock(100, 100, 100))
-          // } else if (pieceNumber === 7) {
-          //   bodies.push(new TBlock(100, 100, 100))
-          // }
 
-        // downward tick
-        // setInterval(() => {
-        //   if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
-        //     this.body.dead = true;
-        //     count++;
-        //     bodies.push(new SquareTetromino(200,-50,50,50))
-        //     this.body.id += count;
-        //   }
-        // }, 250);
       }
 
       s.keyPressed = () => {
@@ -106,51 +81,15 @@ export class CanvasComponent implements OnInit {
           this.body.moveLeft()
         }
       } else if(s.keyCode === s.DOWN_ARROW) {
-
-        this.body.rotateClockwise(this.body.x, this.body.y)
-
         if (this.body.noHitDown(bodies, gameArray)) {
           this.body.moveDown()
-        } else this.body.dead = true;
+          } else this.body.dead = true;
+        } else if (s.keyCode === s.UP_ARROW) {
+          console.log("up")
+          this.body.rotateClockwise(this.body.x, this.body.y)
+        }
 
-        // for (let i = 0; i < bodies.length; i++) {
-        //   // bodies[i].blocks.forEach((block => {
-        //   //   gameArray.forEach((row) => {
-        //   //       row.forEach((position) => {
-        //   //           if (block.y === position[2] && block.x === position[1]) {
-        //   //             position[0] = 1;
-        //   //         }
-        //   //     })
-        //   //   })
-        //   // }))
-        //     // console.log(gameArray)
-        // }
 
-        // let value = 0
-        // for (let i = 0; i < bodies.length; i++) {
-        //   bodies[i].blocks.forEach((block) => {
-        //     for (let z = 0; z < gameArray.length; z ++) {
-        //       let row = gameArray[z]
-        //       // console.log(row[0])
-        //       for (let j = 0; j < row.length-1; j++) {
-        //         let position = row[j+1];
-        //         if (block.y+50 === position[2] && block.x === position[1]) {
-        //             if (position[0] === 0) {
-        //               value += 1
-        //               console.log(value)
-        //             }
-        //           }
-        //       }
-        //     }
-        //   })
-        // }
-        // if (value === 2) {
-
-        //   this.body.moveDown()
-        //
-        // }
-        // console.log(bodies)
-      }
 
       gameArray.forEach((row) => {
           row.forEach((position) => {
@@ -183,7 +122,7 @@ export class CanvasComponent implements OnInit {
 
     s.draw = () => {
 
-      s.background('#7FB28A');
+      s.background('#9C8D7A');
       s.noStroke(255);
 
 
@@ -202,7 +141,8 @@ export class CanvasComponent implements OnInit {
       this.body.borderCheck();
 
       if (this.body.dead === true) {
-        let pieceNumber = Math.floor((Math.random() * 7) + 1);
+          let pieceNumber = Math.floor((Math.random() * 4) + 1);
+        // let pieceNumber = Math.floor((Math.random() * 7) + 1);
         if (pieceNumber === 1) {
           bodies.push(new Test(100, 100, 100));
         } else if (pieceNumber === 2) {
@@ -211,13 +151,8 @@ export class CanvasComponent implements OnInit {
           bodies.push(new ZBlock(100, 100, 100))
         } else if (pieceNumber === 4) {
           bodies.push(new SBlock(100, 100, 100))
-        } else if (pieceNumber === 5) {
-          bodies.push(new EllBlock(100, 100, 100))
-        } else if (pieceNumber === 6) {
-          bodies.push(new AntiEllBlock(100, 100, 100))
-        } else if (pieceNumber === 7) {
-          bodies.push(new TBlock(100, 100, 100))
         }
+
       }
 
       ///I dont know what is going on below here
