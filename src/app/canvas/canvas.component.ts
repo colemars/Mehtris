@@ -78,19 +78,15 @@ export class CanvasComponent implements OnInit {
   }
 
         //moves piece within boundaries
-        if((s.keyCode === s.RIGHT_ARROW) && (this.body.posX <= 400)) {
-        if (!(this.body.moveRight(s, bodies))) {
-        }
-      } else if ((s.keyCode === s.LEFT_ARROW) && (this.body.posX >= 50)) {
-        if (!(this.body.moveLeft(s, bodies))) {
-        }
+        if(s.keyCode === s.RIGHT_ARROW) {
+          bodies[0].moveRight()
+      } else if (s.keyCode === s.LEFT_ARROW) {
+        bodies[0].moveLeft()
       } else if(s.keyCode === s.DOWN_ARROW) {
         // console.log(bodies)
-          for (let i = 0; i < bodies[0].blocks.length; i++) {
-            if (bodies[0].dead === false) {
-              bodies[0].blocks[i].y += 50
-            }
-          }
+
+        bodies[0].moveDown()
+
         // if (!(this.body.moveDown(s, bodies)) || this.body.posY >= 950) {
         //   this.body.dead = true;
         //   count++;
@@ -109,7 +105,8 @@ export class CanvasComponent implements OnInit {
 
 
       for (let i = 0; i < bodies.length; i++) {
-        bodies[i].show(s)
+        bodies[i].show(s);
+        bodies[i].borderCheck();
       }
 
       for (let i = 0; i < bodies.length; i++) {
