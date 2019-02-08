@@ -100,7 +100,7 @@ export class CanvasComponent implements OnInit {
         })
       })
 
-      // console.log(gameArray)
+      console.log(gameArray)
   for (let i = 0; i < bodies.length; i++) {
     bodies[i].blocks.forEach((block) => {
       for (let z = 0; z < gameArray.length; z ++) {
