@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 //required to include scripts in angular.cli and types in tsconfig
 import "p5/lib/addons/p5.dom";
+
 import * as p5 from 'p5';
+import { GameArray } from '../models/game-array.model'
 import { SquareTetromino } from '../models/square_tetromino.model'
 import { Test } from '../models/test.model'
 import { LBlock } from '../models/l.model'
@@ -52,24 +54,26 @@ export class CanvasComponent implements OnInit {
 
       s.keyPressed = () => {
         let gameArray = []
-        // console.log(s.height/10)
-        for(let i=0; i<20; i++){
-          gameArray.push([[0,0,s.height/20*i],[0, 50,s.height/20*i],[0, 100,s.height/20*i],[0, 150,s.height/20*i],[0, 200,s.height/20*i],[0, 250,s.height/20*i],[0, 300,s.height/20*i],[0, 350,s.height/20*i],[0, 400,s.height/20*i],[0, 450,s.height/20*i]]);
-        }
+        GameArray.gameState(gameArray, bodies, s)
 
-      for (let i = 0; i < bodies.length; i++) {
-        bodies[i].blocks.forEach((block => {
-          gameArray.forEach((row) => {
-              row.forEach((position) => {
-                // console.log(position)
-                  if (block.y === position[2] && block.x === position[1]) {
-                    position[0] = 1;
-                }
-            })
-          })
-        }))
-          // console.log(gameArray)
-      }
+        // console.log(s.height/10)
+      //   for(let i=0; i<20; i++){
+      //     gameArray.push([[0,0,s.height/20*i],[0, 50,s.height/20*i],[0, 100,s.height/20*i],[0, 150,s.height/20*i],[0, 200,s.height/20*i],[0, 250,s.height/20*i],[0, 300,s.height/20*i],[0, 350,s.height/20*i],[0, 400,s.height/20*i],[0, 450,s.height/20*i]]);
+      //   }
+      //
+      // for (let i = 0; i < bodies.length; i++) {
+      //   bodies[i].blocks.forEach((block => {
+      //     gameArray.forEach((row) => {
+      //         row.forEach((position) => {
+      //           // console.log(position)
+      //             if (block.y === position[2] && block.x === position[1]) {
+      //               position[0] = 1;
+      //           }
+      //       })
+      //     })
+      //   }))
+      //     // console.log(gameArray)
+      // }
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
@@ -141,7 +145,8 @@ export class CanvasComponent implements OnInit {
       this.body.borderCheck();
 
       if (this.body.dead === true) {
-          let pieceNumber = Math.floor((Math.random() * 4) + 1);
+        let pieceNumber = 1;
+          // let pieceNumber = Math.floor((Math.random() * 4) + 1);
         // let pieceNumber = Math.floor((Math.random() * 7) + 1);
         if (pieceNumber === 1) {
           bodies.push(new Test(100, 100, 100));
