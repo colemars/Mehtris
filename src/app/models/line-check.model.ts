@@ -35,12 +35,14 @@ export class LineCheck {
             for (const block of body.blocks) {
               if (gameArray[i][0][2] === block.y) {
                 block.scored = true;
+              } else if (block.y < gameArray[i][0][2]){
+                //moves all blocks above this row down
+                block.y += 50;
               }
             }
           }
         }
       }
-
     }
   }
 }
