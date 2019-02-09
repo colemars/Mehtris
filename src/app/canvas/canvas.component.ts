@@ -13,6 +13,7 @@ import { AntiEll } from '../models/anti-ell.model'
 import { Z } from '../models/z.model'
 import { S } from '../models/s.model'
 import { T } from '../models/t.model'
+import { TestSquare } from '../models/test-square.model'
 
 @Component({
   selector: 'app-canvas',
@@ -54,7 +55,21 @@ export class CanvasComponent implements OnInit {
         console.log(score)
 
         //creates first piece
-        bodies.push(new T(100, 100, 100))
+
+      	// let pmShape = [
+      	// 	[1, 1, 1, 1],
+      	// 	[0, 1, 0, 1],
+      	// 	[0, 1, 0, 1],
+      	// 	[1, 1, 0, 1],
+      	// ]
+
+         let shape = [
+           [1,1,0],
+           [0,1,1]
+         ]
+        bodies.push(new TestSquare(100, 100, 'ell', 50))
+        // p.display()
+        // bodies.push(new Z(100, 100, 100))
 
       }
 
