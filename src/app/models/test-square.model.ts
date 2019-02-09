@@ -200,7 +200,7 @@ export class TestSquare {
           leftValue++;
         }
         for (let j=0;j<this.shape[i].length;j++) {
-          if (this.shape[i][j-1] === 0) {
+          if ((this.shape[i][j] === 1) && (this.shape[i][j-1] === 0)) {
             leftValue++
           }
         }
@@ -211,10 +211,12 @@ export class TestSquare {
       let rightValue = 0;
       for (let i=0; i<this.shape.length; i++) {
         if (this.shape[i][this.shape[i].length-1] === 1) {
+          console.log('hit here')
           rightValue++;
         }
         for (let j=0;j<this.shape[i].length;j++) {
-          if (this.shape[i][j+1] === 0) {
+          if ((this.shape[i][j] === 1) && (this.shape[i][j+1] === 0)) {
+            console.log('hit there')
             rightValue++
           }
         }
