@@ -248,22 +248,24 @@ export class TestSquare {
     let value = 0
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {
+        // console.log(this.blocks)
         for (let z = 0; z < gameArray.length; z ++) {
           let row = gameArray[z]
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j+1]
-            if (position[1] != 0) {
-              if (block.y === position[2] && block.x === position[1]) {
-                if (futurePos[0] === 0) {
-                  value += 1;
-                }
+            if (block.y === position[2] && block.x === position[1]) {
+              if (futurePos[0] === 0) {
+                console.log(futurePos)
+                value += 1;
               }
             }
           }
         }
       })
     }
+    console.log(value)
+    console.log(this.movingBlocks('right'))
     if (value === this.movingBlocks('right')*bodies.length) {
       return true;
     }
