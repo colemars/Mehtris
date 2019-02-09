@@ -6,14 +6,13 @@ import * as p5 from 'p5';
 import { GameArray } from '../models/game-array.model'
 import { ScoreCheck } from '../models/score-check.model'
 import { Score } from '../models/score.model'
-import { SquareTetromino } from '../models/square_tetromino.model'
-import { Test } from '../models/test.model'
-import { LBlock } from '../models/l.model'
-import { EllBlock } from '../models/ell.model'
-import { AntiEllBlock } from '../models/anti-ell.model'
-import { ZBlock } from '../models/z.model'
-import { SBlock } from '../models/s.model'
-import { TBlock } from '../models/t.model'
+import { Square } from '../models/square.model'
+import { I } from '../models/I.model'
+import { Ell } from '../models/ell.model'
+import { AntiEll } from '../models/anti-ell.model'
+import { Z } from '../models/z.model'
+import { S } from '../models/s.model'
+import { T } from '../models/t.model'
 
 @Component({
   selector: 'app-canvas',
@@ -55,12 +54,11 @@ export class CanvasComponent implements OnInit {
         console.log(score)
 
         //creates first piece
-        bodies.push(new Test(100, 100, 100))
+        bodies.push(new T(100, 100, 100))
 
       }
 
       s.keyPressed = () => {
-        console.log(score)
         let gameArray = []
         //creates game state
         GameArray.gameState(gameArray, bodies, s)
@@ -129,7 +127,7 @@ export class CanvasComponent implements OnInit {
           // let pieceNumber = Math.floor((Math.random() * 4) + 1);
         // let pieceNumber = Math.floor((Math.random() * 7) + 1);
         if (pieceNumber === 1) {
-          bodies.push(new Test(100, 100, 100));
+          bodies.push(new Square(100, 100, 100));
         } else if (pieceNumber === 2) {
           bodies.push(new LBlock(100, 100, 100))
         } else if (pieceNumber === 3) {
@@ -142,7 +140,7 @@ export class CanvasComponent implements OnInit {
 
       //checks if line is full and scores
       ScoreCheck.check(score, bodies, s)
-
+      // console.log(score)
 
 
 

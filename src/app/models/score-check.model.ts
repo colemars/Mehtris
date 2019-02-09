@@ -3,7 +3,7 @@ import { GameArray } from './game-array.model'
 export class ScoreCheck {
   constructor() {
   }
-  
+
   static check(score,bodies, s) {
     let gameArray = []
     GameArray.gameState(gameArray, bodies, s)

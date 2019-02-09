@@ -1,24 +1,29 @@
 import { TestBlock } from './test_block.model'
 
-export class L {
+export class Square {
   [x: string]: any;
 	constructor(x, y, w) {
     this.dead = false;
     this.collidedRight = false;
     this.collidedLeft = false;
 		this.blocks = [];
-		const blockW = 50;
+		const blockW = w / 2;
 		this.blocks.push(new TestBlock (x, y, blockW));
-		this.blocks.push(new TestBlock(x, y - 50, blockW));
-		this.blocks.push(new TestBlock(x, y - 100, blockW));
-		this.blocks.push(new TestBlock(x, y - 150, blockW));
+		this.blocks.push(new TestBlock(x + blockW, y, blockW));
+		this.blocks.push(new TestBlock(x, y + blockW, blockW));
+		this.blocks.push(new TestBlock(x + blockW, y + blockW, blockW));
+    this.leftValue = 0;
 	}
 
 	show(p5) {
 		p5.push();
-    p5.fill("#6B9C93")
+    p5.fill('#F6C44B')
 		for (const block of this.blocks) {
-			block.show(p5);
+      if (block.scored === false) {
+        block.show(p5);
+      } else {
+        this.blocks.splice(this.blocks.indexOf(block), 1)
+      }
 		}
 		p5.pop();
 	}
@@ -42,7 +47,7 @@ export class L {
 
   moveLeft() {
     this.collidedRight = false;
-    console.log(this.collidedLeft)
+    // console.log(this.collidedLeft)
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedLeft === false) && (this.blocks[i].x >= 0)) {
         this.blocks[i].x -= 50
@@ -53,42 +58,38 @@ export class L {
   borderCheck(bodies) {
     for (let i =0; i < this.blocks.length; i++) {
       if (this.blocks[i].y >= 950) {
-        console.log('hit')
         this.dead = true;
-        // console.log('hit bottom')
+
       }
       if (this.blocks[i].x >= 450){
         this.collidedRight = true;
-        // console.log('hit right')
-        // console.log(this.collidedRight)
+
       }
       if (this.blocks[i].x <= 0){
         this.collidedLeft = true;
-        // console.log('hit left')
+
       }
     }
   }
+
   noHitDown(bodies, gameArray) {
     let value = 0;
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {
         for (let z = 0; z < gameArray.length; z ++) {
           if (gameArray[z+1]) {
-          let row = gameArray[z];
-          let futureRow = gameArray[z+1]
+          let row = gameArray[z+1]
+
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
-            let futurePos = futureRow[j]
-            if (block.y === position[2] && block.x === position[1]) {
-              // console.log('present', position)
-              // console.log('future', futurePos)
-             // console.log('success')
-              if (futurePos[0] === 0) {
-                // console.log('before', value)
+
+            if (block.y+50 === position[2] && block.x === position[1]) {
+
+
+              if (position[0] === 0) {
+
                 value += 1
-                // console.log(value)
-                // console.log('after', value)
-                // console.log(value)
+
               }
             }
           }
@@ -96,7 +97,7 @@ export class L {
         }
       })
     }
-    if (value === 1*bodies.length) {
+    if (value === 2*bodies.length) {
       return true;
 
     }
@@ -108,20 +109,18 @@ export class L {
       this.blocks.forEach((block) => {
         for (let z = 0; z < gameArray.length; z ++) {
           let row = gameArray[z]
-          // console.log(row[0])
-          // debugger;
+
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j-1]
             if (position[1] != 0) {
-               // console.log(block.y, block.x)
+
               if (block.y === position[2] && block.x === position[1]) {
-                  // console.log('future', futurePos[0])
+
                 if (futurePos[0] === 0) {
-                  // console.log(position)
-                  // console.log('future',futurePos)
+
                   value += 1;
-                  // console.log(value)
+
                 }
               }
             }
@@ -129,8 +128,8 @@ export class L {
         }
       })
     }
-    // console.log(bodies.length)
-    if (value === 4*bodies.length) {
+
+    if (value === 2*bodies.length) {
       return true;
 
     }
@@ -142,20 +141,18 @@ export class L {
       this.blocks.forEach((block) => {
         for (let z = 0; z < gameArray.length; z ++) {
           let row = gameArray[z]
-          // console.log(row[0])
-          // debugger;
+
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j+1]
             if (position[1] != 0) {
-               // console.log(block.y, block.x)
+
               if (block.y === position[2] && block.x === position[1]) {
-                // console.log('future', futurePos[0])
+
                 if (futurePos[0] === 0) {
-                  // console.log(position)
-                  // console.log('future',futurePos)
+
                   value += 1;
-                  // console.log(value)
+
                 }
               }
             }
@@ -163,8 +160,8 @@ export class L {
         }
       })
     }
-    // console.log(bodies.length)
-    if (value === 4*bodies.length) {
+
+    if (value === 2*bodies.length) {
       return true;
 
     }

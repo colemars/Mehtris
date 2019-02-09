@@ -1,29 +1,24 @@
 import { TestBlock } from './test_block.model'
 
-export class Test {
+export class Ell {
   [x: string]: any;
 	constructor(x, y, w) {
     this.dead = false;
     this.collidedRight = false;
     this.collidedLeft = false;
 		this.blocks = [];
-		const blockW = w / 2;
+		const blockW = 50;
 		this.blocks.push(new TestBlock (x, y, blockW));
-		this.blocks.push(new TestBlock(x + blockW, y, blockW));
-		this.blocks.push(new TestBlock(x, y + blockW, blockW));
-		this.blocks.push(new TestBlock(x + blockW, y + blockW, blockW));
-    this.leftValue = 0;
+		this.blocks.push(new TestBlock(x, y - 50, blockW));
+		this.blocks.push(new TestBlock(x, y - 100, blockW));
+		this.blocks.push(new TestBlock(x + 50, y, blockW));
 	}
 
 	show(p5) {
 		p5.push();
-    p5.fill('#F6C44B')
+    p5.fill('orange')
 		for (const block of this.blocks) {
-      if (block.scored === false) {
-        block.show(p5);
-      } else {
-        this.blocks.splice(this.blocks.indexOf(block), 1)
-      }
+			block.show(p5);
 		}
 		p5.pop();
 	}
@@ -47,7 +42,7 @@ export class Test {
 
   moveLeft() {
     this.collidedRight = false;
-    // console.log(this.collidedLeft)
+    console.log(this.collidedLeft)
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedLeft === false) && (this.blocks[i].x >= 0)) {
         this.blocks[i].x -= 50
@@ -59,15 +54,16 @@ export class Test {
     for (let i =0; i < this.blocks.length; i++) {
       if (this.blocks[i].y >= 950) {
         this.dead = true;
-
+        // console.log('hit bottom')
       }
       if (this.blocks[i].x >= 450){
         this.collidedRight = true;
-
+        // console.log('hit right')
+        // console.log(this.collidedRight)
       }
       if (this.blocks[i].x <= 0){
         this.collidedLeft = true;
-
+        // console.log('hit left')
       }
     }
   }
@@ -79,17 +75,19 @@ export class Test {
         for (let z = 0; z < gameArray.length; z ++) {
           if (gameArray[z+1]) {
           let row = gameArray[z+1]
-
+          // console.log(row[0])
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
-
+            // console.log(position)
             if (block.y+50 === position[2] && block.x === position[1]) {
 
-
+             console.log('success')
               if (position[0] === 0) {
-
+                // console.log('before', value)
+                console.log(value)
                 value += 1
-
+                // console.log('after', value)
+                // console.log(value)
               }
             }
           }
@@ -109,18 +107,20 @@ export class Test {
       this.blocks.forEach((block) => {
         for (let z = 0; z < gameArray.length; z ++) {
           let row = gameArray[z]
-
+          // console.log(row[0])
+          // debugger;
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j-1]
             if (position[1] != 0) {
-
+               // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-
+                // console.log('hit')
                 if (futurePos[0] === 0) {
-
+                  // console.log(position)
+                  // console.log('future',futurePos)
                   value += 1;
-
+                  // console.log(value)
                 }
               }
             }
@@ -128,8 +128,8 @@ export class Test {
         }
       })
     }
-
-    if (value === 2*bodies.length) {
+    // console.log(bodies.length)
+    if (value === 3*bodies.length) {
       return true;
 
     }
@@ -141,18 +141,20 @@ export class Test {
       this.blocks.forEach((block) => {
         for (let z = 0; z < gameArray.length; z ++) {
           let row = gameArray[z]
-
+          // console.log(row[0])
+          // debugger;
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j+1]
             if (position[1] != 0) {
-
+               // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-
+                // console.log('hit')
                 if (futurePos[0] === 0) {
-
+                  // console.log(position)
+                  // console.log('future',futurePos)
                   value += 1;
-
+                  // console.log(value)
                 }
               }
             }
@@ -160,8 +162,8 @@ export class Test {
         }
       })
     }
-
-    if (value === 2*bodies.length) {
+    // console.log(bodies.length)
+    if (value === 3*bodies.length) {
       return true;
 
     }
