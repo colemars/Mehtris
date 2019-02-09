@@ -129,7 +129,7 @@ export class EllBlock {
       })
     }
     // console.log(bodies.length)
-    if (value === 2*bodies.length) {
+    if (value === 3*bodies.length) {
       return true;
 
     }
@@ -163,7 +163,7 @@ export class EllBlock {
       })
     }
     // console.log(bodies.length)
-    if (value === 2*bodies.length) {
+    if (value === 3*bodies.length) {
       return true;
 
     }
