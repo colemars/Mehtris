@@ -21,6 +21,8 @@ export class Test {
 		for (const block of this.blocks) {
       if (block.scored === false) {
         block.show(p5);
+      } else {
+        this.blocks.splice(this.blocks.indexOf(block), 1)
       }
 		}
 		p5.pop();
@@ -158,7 +160,7 @@ export class Test {
         }
       })
     }
-  
+
     if (value === 2*bodies.length) {
       return true;
 
