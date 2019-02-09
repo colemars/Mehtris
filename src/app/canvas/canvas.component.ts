@@ -58,9 +58,6 @@ export class CanvasComponent implements OnInit {
         //creates game state
         GameArray.gameState(gameArray, bodies, s)
 
-        // //checks if line is full
-        // LineCheck.check(gameArray, bodies)
-
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
           if (this.body.noHitRight(bodies, gameArray)) {
@@ -138,6 +135,9 @@ export class CanvasComponent implements OnInit {
 
       //checks if line is full
       LineCheck.check(bodies, s)
+
+
+
 
     }
 }
