@@ -5,7 +5,7 @@ export class LineCheck {
   }
 
   //After a player clears lines, lines here is a number 1 to 4
-  static check(bodies, s) {
+  static check(score,bodies, s) {
     let gameArray = []
     GameArray.gameState(gameArray, bodies, s)
 
@@ -29,7 +29,7 @@ export class LineCheck {
         }
       }
       if (blocksDeadInRow === 10) {
-        // console.log('all dead')
+        score.lines+=1;
         for(const body of bodies) {
           if (body.dead === true) {
             for (const block of body.blocks) {
@@ -44,5 +44,7 @@ export class LineCheck {
         }
       }
     }
+    score.addScore();
+    score.updateLevel();
   }
 }
