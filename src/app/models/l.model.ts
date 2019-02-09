@@ -1,6 +1,6 @@
 import { TestBlock } from './test_block.model'
 
-export class LBlock {
+export class L {
   [x: string]: any;
 	constructor(x, y, w) {
     this.dead = false;
