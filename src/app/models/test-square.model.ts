@@ -252,6 +252,7 @@ export class TestSquare {
   }
 
   noHitLeft(bodies, gameArray) {
+    // console.log('hello')
     let value = 0
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {

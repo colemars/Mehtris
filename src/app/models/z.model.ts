@@ -2,27 +2,27 @@ import { TestBlock } from './test_block.model'
 
 export class Z {
   [x: string]: any;
-	constructor(x, y, w) {
+  constructor(x, y, w) {
     this.dead = false;
     this.collidedRight = false;
     this.collidedLeft = false;
-		this.blocks = [];
-		const blockW = 50;
-		this.blocks.push(new TestBlock (x, y, blockW));
-		this.blocks.push(new TestBlock(x + 50, y, blockW));
-		this.blocks.push(new TestBlock(x + 50, y + 50, blockW));
-		this.blocks.push(new TestBlock(x + 100, y + 50, blockW));
+    this.blocks = [];
+    const blockW = 50;
+    this.blocks.push(new TestBlock (x, y, blockW));
+    this.blocks.push(new TestBlock(x + 50, y, blockW));
+    this.blocks.push(new TestBlock(x + 50, y + 50, blockW));
+    this.blocks.push(new TestBlock(x + 100, y + 50, blockW));
     this.tickClock = 0
-	}
+  }
 
-	show(p5) {
-		p5.push();
+  show(p5) {
+    p5.push();
     p5.fill('#6B6E9C')
-		for (const block of this.blocks) {
-			block.show(p5);
-		}
-		p5.pop();
-	}
+    for (const block of this.blocks) {
+      block.show(p5);
+    }
+    p5.pop();
+  }
 
   moveDown() {
     for (let i = 0; i < this.blocks.length; i++) {
@@ -53,37 +53,37 @@ export class Z {
 
   rotateClockwise(x, y) {
 
-      console.log("Tick", this.tickClock)
-      if (this.tickClock === 0) {
-        this.blocks[0].x += 50;
-        this.blocks[0].y -= 50;
-        this.blocks[2].x -= 50;
-        this.blocks[2].y -= 50;
-        this.blocks[3].x -= 100;
-        this.tickClock++
-        console.log("Tick in If", this.tickClock)
-      } else if (this.tickClock === 1) {
-        this.blocks[0].x += 50;
-        this.blocks[0].y += 50;
-        this.blocks[2].x += 50;
-        this.blocks[2].y -= 50;
-        this.blocks[3].y -= 100
-        this.tickClock++
-      } else if (this.tickClock === 2) {
-        this.blocks[0].x -= 50;
-        this.blocks[0].y += 50;
-        this.blocks[2].x += 50;
-        this.blocks[2].y += 50;
-        this.blocks[3].x += 100;
-        this.tickClock++
-      } else if (this.tickClock === 3) {
-        this.blocks[0].x -= 50;
-        this.blocks[0].y -= 50;
-        this.blocks[2].x -= 50;
-        this.blocks[2].y += 50;
-        this.blocks[3].y += 100;
-        this.tickClock = 0;
-      }
+    console.log("Tick", this.tickClock)
+    if (this.tickClock === 0) {
+      this.blocks[0].x += 50;
+      this.blocks[0].y -= 50;
+      this.blocks[2].x -= 50;
+      this.blocks[2].y -= 50;
+      this.blocks[3].x -= 100;
+      this.tickClock++
+      console.log("Tick in If", this.tickClock)
+    } else if (this.tickClock === 1) {
+      this.blocks[0].x += 50;
+      this.blocks[0].y += 50;
+      this.blocks[2].x += 50;
+      this.blocks[2].y -= 50;
+      this.blocks[3].y -= 100
+      this.tickClock++
+    } else if (this.tickClock === 2) {
+      this.blocks[0].x -= 50;
+      this.blocks[0].y += 50;
+      this.blocks[2].x += 50;
+      this.blocks[2].y += 50;
+      this.blocks[3].x += 100;
+      this.tickClock++
+    } else if (this.tickClock === 3) {
+      this.blocks[0].x -= 50;
+      this.blocks[0].y -= 50;
+      this.blocks[2].x -= 50;
+      this.blocks[2].y += 50;
+      this.blocks[3].y += 100;
+      this.tickClock = 0;
+    }
 
 
   }
@@ -112,25 +112,25 @@ export class Z {
       this.blocks.forEach((block) => {
         for (let z = 0; z < gameArray.length; z ++) {
           if (gameArray[z+1]) {
-          let row = gameArray[z];
-          let futureRow = gameArray[z+1]
-          for (let j = 0; j < row.length; j++) {
-            let position = row[j];
-            let futurePos = futureRow[j]
-            if (block.y === position[2] && block.x === position[1]) {
-              // console.log('present', position)
-              // console.log('future', futurePos)
-             // console.log('success')
-              if (futurePos[0] === 0) {
-                // console.log('before', value)
-                value += 1
-                // console.log(value)
-                // console.log('after', value)
-                // console.log(value)
+            let row = gameArray[z];
+            let futureRow = gameArray[z+1]
+            for (let j = 0; j < row.length; j++) {
+              let position = row[j];
+              let futurePos = futureRow[j]
+              if (block.y === position[2] && block.x === position[1]) {
+                // console.log('present', position)
+                // console.log('future', futurePos)
+                // console.log('success')
+                if (futurePos[0] === 0) {
+                  // console.log('before', value)
+                  value += 1
+                  // console.log(value)
+                  // console.log('after', value)
+                  // console.log(value)
+                }
               }
             }
           }
-        }
         }
       })
     }
@@ -152,9 +152,9 @@ export class Z {
             let position = row[j];
             let futurePos = row[j-1]
             if (position[1] != 0) {
-               // console.log(block.y, block.x)
+              // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-                  // console.log('future', futurePos[0])
+                // console.log('future', futurePos[0])
                 if (futurePos[0] === 0) {
                   // console.log(position)
                   // console.log('future',futurePos)
@@ -186,7 +186,7 @@ export class Z {
             let position = row[j];
             let futurePos = row[j+1]
             if (position[1] != 0) {
-               // console.log(block.y, block.x)
+              // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
                 // console.log('future', futurePos[0])
                 if (futurePos[0] === 0) {

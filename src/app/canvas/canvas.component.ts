@@ -80,6 +80,7 @@ export class CanvasComponent implements OnInit {
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
+          console.log('key press')
           if (this.body.noHitRight(bodies, gameArray)) {
             this.body.moveRight()
           }
@@ -125,6 +126,7 @@ export class CanvasComponent implements OnInit {
 
       for (let i = 0; i < bodies.length; i++) {
         bodies[i].show(s);
+        // bodies[i].display(s);
       }
 
 
