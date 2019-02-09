@@ -78,7 +78,7 @@ export class CanvasComponent implements OnInit {
           } else this.body.dead = true;
         } else if (s.keyCode === s.UP_ARROW) {
 
-          this.body.rotateClockwise(this.body.x, this.body.y)
+          this.body.rotate()
         }
 
 
