@@ -1,10 +1,9 @@
 import { GameArray } from './game-array.model'
 
-export class LineCheck {
+export class ScoreCheck {
   constructor() {
   }
-
-  //After a player clears lines, lines here is a number 1 to 4
+  
   static check(score,bodies, s) {
     let gameArray = []
     GameArray.gameState(gameArray, bodies, s)

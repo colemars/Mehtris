@@ -4,7 +4,7 @@ import "p5/lib/addons/p5.dom";
 
 import * as p5 from 'p5';
 import { GameArray } from '../models/game-array.model'
-import { LineCheck } from '../models/line-check.model'
+import { ScoreCheck } from '../models/score-check.model'
 import { Score } from '../models/score.model'
 import { SquareTetromino } from '../models/square_tetromino.model'
 import { Test } from '../models/test.model'
@@ -141,7 +141,7 @@ export class CanvasComponent implements OnInit {
       }
 
       //checks if line is full and scores
-      LineCheck.check(score, bodies, s)
+      ScoreCheck.check(score, bodies, s)
 
 
 
