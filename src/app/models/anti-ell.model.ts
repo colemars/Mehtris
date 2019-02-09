@@ -1,6 +1,6 @@
 import { TestBlock } from './test_block.model'
 
-export class AntiEllBlock {
+export class AntiEll {
   [x: string]: any;
 	constructor(x, y, w) {
     this.dead = false;
@@ -129,7 +129,7 @@ export class AntiEllBlock {
       })
     }
     // console.log(bodies.length)
-    if (value === 2*bodies.length) {
+    if (value === 3*bodies.length) {
       return true;
 
     }
@@ -163,7 +163,7 @@ export class AntiEllBlock {
       })
     }
     // console.log(bodies.length)
-    if (value === 2*bodies.length) {
+    if (value === 3*bodies.length) {
       return true;
 
     }
