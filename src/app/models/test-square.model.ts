@@ -15,57 +15,83 @@ export class TestSquare {
     this.x = x;
     this.y = y;
     this.shapes = {
-      square: {orientation:{normal:[[1,1],[1,1]]}},
-      ell: {orientation:{normal:[[1,0],[1,0],[1,1]]}},
-      antiEll: {orientation:{normal:[[0,1],[0,1],[1,1]]}},
-      straight: {orientation:{normal:[[1],[1],[1],[1]]}},
-      s: {orientation:{normal:[[0,1,1],[1,1,0]]}},
-      t: {orientation:{normal:[[1,1,1],[0,1,0]]}},
-      z: {orientation:{normal:[[1,1,0],[0,1,1]]}},
+      square:{orientation:{up:[[0,1,1,0],[0,1,1,0],[0,0,0,0]],right:[[0,1,1,0],[0,1,1,0],[0,0,0,0]],down:[[0,1,1,0],[0,1,1,0],[0,0,0,0]],left:[[0,1,1,0],[0,1,1,0],[0,0,0,0]]},color:'yellow'},
+      ell:{orientation:{up:[[0,0,1],[1,1,1],[0,0,0]],right:[[0,1,0], [0,1,0],[0,1,1]],down:[[0,0,0],[1,1,1],[1,0,0]],left:[[1,1,0],[0,1,0],[0,1,0]]}, color:'orange'},
+      antiEll:{orientation:{up:[[1,0,0],[1,1,1],[0,0,0]],right:[[0,1,1],[0,1,0],[0,1,0]],down:[[0,0,0],[1,1,1],[0,0,1]],left:[[0,1,0],[0,1,0],[1,1,0]]}, color:'blue'},
+      straight:{orientation:{up:[[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],right:[[0,0,1,0],[0,0,1,0],[0,0,1,0],[0,0,1,0]],down:[[0,0,0,0],[0,0,0,0],[1,1,1,1],[0,0,0,0]],left:[[0,0,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]]}, color:'cyan'},
+      s:{orientation:{up:[[0,1,1],[1,1,0],[0,0,0]],right:[[0,1,0],[0,1,1],[0,0,1]],down:[[0,0,0],[0,1,1],[1,1,0]],left:[[1,0,0],[1,1,0],[0,1,0]]}, color:'green'},
+      t:{orientation:{up:[[0,1,0],[1,1,1],[0,0,0]],right:[[0,1,0],[0,1,1],[0,1,0]],down:[[0,0,0],[1,1,1],[0,1,0]],left:[[0,1,0],[1,1,0],[0,1,0]]}, color:'purple'},
+      z:{orientation:{up:[[1,1,0],[0,1,1],[0,0,0]],right:[[0,0,1],[0,1,1],[0,1,0]],down:[[0,0,0],[1,1,0],[0,1,1]],left:[[0,1,0],[1,1,0],[1,0,0]]}, color:'red'}
     };
     this.requestedShape = requestedShape;
     this.shape = this.shapeCheck();
+    this.piece;
+    this.currentOrientation;
     this.blockSize = blockSize;
     this.collidedLeft = false;
     this.collidedRight = false;
     this.dead = false;
     this.blocks = [];
+    this.buildPiece();
+  }
+
+  buildPiece() {
+    this.blocks = [];
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
         if(this.shape[i][j] === 1) {
-          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize))
+          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.piece.color))
         }
       }
     }
   }
 
+  findCenter() {
+
+  }
+
+
   shapeCheck() {
     if (this.requestedShape === 'square') {
-      return this.shapes.square.orientation.normal
+      this.piece = this.shapes.square;
+      this.currentOrientation = 0;
+      return this.shapes.square.orientation.up
     }
     if (this.requestedShape === 'ell') {
-      return this.shapes.ell.orientation.normal
+      this.piece = this.shapes.ell;
+      this.currentOrientation = 0;
+      return this.shapes.ell.orientation.up
     }
-    if (this.requestedShape === 'anti_ell') {
-      return this.shapes.antiEll.orientation.normal
+    if (this.requestedShape === 'antiEll') {
+      this.piece = this.shapes.antiEll;
+      this.currentOrientation = 0;
+      return this.shapes.antiEll.orientation.up
     }
     if (this.requestedShape === 'I') {
-      return this.shapes.straight.orientation.normal
+      this.piece = this.shapes.straight;
+      this.currentOrientation = 0;
+      return this.shapes.straight.orientation.up
     }
     if (this.requestedShape === 's') {
-      return this.shapes.s.orientation.normal
+      this.piece = this.shapes.s;
+      this.currentOrientation = 0;
+      return this.shapes.s.orientation.up
     }
     if (this.requestedShape === 't') {
-      return this.shapes.t.orientation.normal
+      this.piece = this.shapes.t;
+      this.currentOrientation = 0;
+      return this.shapes.t.orientation.up
     }
     if (this.requestedShape === 'z') {
-      return this.shapes.z.orientation.normal
+      this.piece = this.shapes.z;
+      this.currentOrientation = 0;
+      return this.shapes.z.orientation.up
     }
   }
 
   show(p5){
     p5.push();
-    p5.fill('#6B6E9C')
+    // p5.fill('#6B6E9C')
     for (const block of this.blocks) {
       block.show(p5);
     }
