@@ -4,6 +4,7 @@ import "p5/lib/addons/p5.dom";
 
 import * as p5 from 'p5';
 import { GameArray } from '../models/game-array.model'
+import { LineCheck } from '../models/line-check.model'
 import { SquareTetromino } from '../models/square_tetromino.model'
 import { Test } from '../models/test.model'
 import { LBlock } from '../models/l.model'
@@ -48,32 +49,17 @@ export class CanvasComponent implements OnInit {
         canvas.position(x,y);
         // s.background(255, 0, 200);
 
-          bodies.push(new ZBlock(100, 100, 100))
+          bodies.push(new Test(100, 100, 100))
 
       }
 
       s.keyPressed = () => {
         let gameArray = []
+        //creates game state
         GameArray.gameState(gameArray, bodies, s)
 
-        // console.log(s.height/10)
-      //   for(let i=0; i<20; i++){
-      //     gameArray.push([[0,0,s.height/20*i],[0, 50,s.height/20*i],[0, 100,s.height/20*i],[0, 150,s.height/20*i],[0, 200,s.height/20*i],[0, 250,s.height/20*i],[0, 300,s.height/20*i],[0, 350,s.height/20*i],[0, 400,s.height/20*i],[0, 450,s.height/20*i]]);
-      //   }
-      //
-      // for (let i = 0; i < bodies.length; i++) {
-      //   bodies[i].blocks.forEach((block => {
-      //     gameArray.forEach((row) => {
-      //         row.forEach((position) => {
-      //           // console.log(position)
-      //             if (block.y === position[2] && block.x === position[1]) {
-      //               position[0] = 1;
-      //           }
-      //       })
-      //     })
-      //   }))
-      //     // console.log(gameArray)
-      // }
+        // //checks if line is full
+        // LineCheck.check(gameArray, bodies)
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
@@ -89,32 +75,22 @@ export class CanvasComponent implements OnInit {
           this.body.moveDown()
           } else this.body.dead = true;
         } else if (s.keyCode === s.UP_ARROW) {
-          console.log("up")
+
           this.body.rotateClockwise(this.body.x, this.body.y)
         }
 
 
 
-      gameArray.forEach((row) => {
-          row.forEach((position) => {
-            // console.log(position)
-              // if (block.y === position[2] && block.x === position[1]) {
-              //   position[0] = 1;
-            // }
-        })
-      })
-
-      console.log(gameArray)
   for (let i = 0; i < bodies.length; i++) {
     bodies[i].blocks.forEach((block) => {
       for (let z = 0; z < gameArray.length; z ++) {
         let row = gameArray[z]
-        // console.log(row[0])
+
         for (let j = 0; j < row.length-1; j++) {
           let position = row[j+1];
           if (block.y+50 === position[2] && block.x === position[1]) {
               if (position[0] === 0) {
-                // console.log(position)
+
               }
             }
         }
@@ -160,6 +136,9 @@ export class CanvasComponent implements OnInit {
 
       }
 
+      //checks if line is full
+      LineCheck.check(bodies, s)
+
       ///I dont know what is going on below here
       ///
       ///
@@ -178,7 +157,6 @@ export class CanvasComponent implements OnInit {
 
       let deadPieceArray = [];
       let deadPieceSortedArray = [];
-      // console.log("Dead pieces:", deadPieceArray);
       for (let i = 0; i < bodies.length; i++) {
       if(bodies[i].dead === true) {
         deadPieceArray.push(bodies[i]);
@@ -214,31 +192,28 @@ export class CanvasComponent implements OnInit {
       prev = testFunction[i].posY;
     }
 
-    // console.log(["Y Position:", posYTrack, "Amount of:", AmountOfPosY])
-      // console.log(posYTrack)
     let linesOfArray = [];
     let moveArray =[]
-    // console.log(deadPieceArray.length)
+
     for (let i = 0; i < AmountOfPosY.length; i++) {
       if (AmountOfPosY[i] === 3) {
-        // console.log("Line on Y position:", posYTrack[i])
+
         let line = posYTrack[i]
         // let aboveLine = posYTrack[i-1]
-        // console.log(aboveLine)
+
         for (let j = 0; j < deadPieceArray.length; j++) {
           // if(deadPieceArray[j].posY === aboveLine) {
           //   bodies[bodies.indexOf(deadPieceArray[j])].posY += 50;
           // }
           if(deadPieceArray[j].posY === line) {
             bodies.splice(bodies.indexOf(deadPieceArray[j]), 1);
-            // console.log(bodies[bodies.indexOf(deadPieceArray[j+1])])
-            // console.log(deadPieceArray)
+
             // bodies.forEach((body) => {
             //   body.posY += 50;
             // })
           } else {
               moveArray.push(bodies[bodies.indexOf(deadPieceArray[j])])
-              console.log(moveArray)
+
           }
         }
       }
@@ -255,13 +230,13 @@ export class CanvasComponent implements OnInit {
     for (let i = 0; i < moveArray.length; i++) {
 
       bodies[bodies.indexOf(moveArray[i])].posY += 50;
-      console.log('move',i)
+
       if (i === moveArray.length - 1) {
         moveArray.length = 0;
       }
     }
 
-    // console.log("Lines:", linesOfArray)
+
 
 
   };
