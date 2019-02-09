@@ -123,17 +123,25 @@ export class CanvasComponent implements OnInit {
       this.body.borderCheck();
 
       if (this.body.dead === true) {
-        let pieceNumber = 1;
+        // console.log('hello')
+        // let pieceNumber = 1;
           // let pieceNumber = Math.floor((Math.random() * 4) + 1);
-        // let pieceNumber = Math.floor((Math.random() * 7) + 1);
+        let pieceNumber = Math.floor((Math.random() * 7) + 1);
+        console.log('number',pieceNumber)
         if (pieceNumber === 1) {
-          bodies.push(new Square(100, 100, 100));
+          bodies.push(new TestSquare(100, 100, 'square', 50))
         } else if (pieceNumber === 2) {
-          bodies.push(new LBlock(100, 100, 100))
+          bodies.push(new TestSquare(100, 100, 'ell', 50))
         } else if (pieceNumber === 3) {
-          bodies.push(new ZBlock(100, 100, 100))
+          bodies.push(new TestSquare(100, 100, 'antiEll', 50))
         } else if (pieceNumber === 4) {
-          bodies.push(new SBlock(100, 100, 100))
+          bodies.push(new TestSquare(100, 100, 'I', 50))
+        } else if (pieceNumber === 5) {
+          bodies.push(new TestSquare(100, 100, 't', 50))
+        } else if (pieceNumber === 6) {
+          bodies.push(new TestSquare(100, 100, 'z', 50))
+        } else if (pieceNumber === 7) {
+          bodies.push(new TestSquare(100, 100, 's', 50))
         }
 
       }
