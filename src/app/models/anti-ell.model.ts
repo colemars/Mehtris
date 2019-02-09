@@ -84,7 +84,7 @@ export class AntiEllBlock {
              console.log('success')
               if (position[0] === 0) {
                 // console.log('before', value)
-                console.log(value)
+                // console.log(value)
                 value += 1
                 // console.log('after', value)
                 // console.log(value)

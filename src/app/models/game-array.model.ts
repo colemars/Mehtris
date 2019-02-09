@@ -18,7 +18,6 @@ export class GameArray {
           })
         })
       }))
-      // console.log(gameArray)
     }
   }
 }

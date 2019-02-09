@@ -43,7 +43,7 @@ export class ZBlock {
 
   moveLeft() {
     this.collidedRight = false;
-    console.log(this.collidedLeft)
+    // console.log(this.collidedLeft)
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedLeft === false) && (this.blocks[i].x >= 0)) {
         this.blocks[i].x -= 50
@@ -91,7 +91,7 @@ export class ZBlock {
   borderCheck(bodies) {
     for (let i =0; i < this.blocks.length; i++) {
       if (this.blocks[i].y >= 950) {
-        console.log('hit')
+        // console.log('hit')
         this.dead = true;
         // console.log('hit bottom')
       }
@@ -124,7 +124,7 @@ export class ZBlock {
               if (futurePos[0] === 0) {
                 // console.log('before', value)
                 value += 1
-                console.log(value)
+                // console.log(value)
                 // console.log('after', value)
                 // console.log(value)
               }
@@ -154,7 +154,7 @@ export class ZBlock {
             if (position[1] != 0) {
                // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-                  console.log('future', futurePos[0])
+                  // console.log('future', futurePos[0])
                 if (futurePos[0] === 0) {
                   // console.log(position)
                   // console.log('future',futurePos)
@@ -188,12 +188,12 @@ export class ZBlock {
             if (position[1] != 0) {
                // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-                console.log('future', futurePos[0])
+                // console.log('future', futurePos[0])
                 if (futurePos[0] === 0) {
                   // console.log(position)
                   // console.log('future',futurePos)
                   value += 1;
-                  console.log(value)
+                  // console.log(value)
                 }
               }
             }

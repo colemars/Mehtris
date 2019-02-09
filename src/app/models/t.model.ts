@@ -81,7 +81,7 @@ export class TBlock {
             // console.log(position)
             if (block.y+50 === position[2] && block.x === position[1]) {
 
-             console.log('success')
+             // console.log('success')
               if (position[0] === 0) {
                 // console.log('before', value)
                 console.log(value)

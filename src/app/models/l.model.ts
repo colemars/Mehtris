@@ -86,7 +86,7 @@ export class LBlock {
               if (futurePos[0] === 0) {
                 // console.log('before', value)
                 value += 1
-                console.log(value)
+                // console.log(value)
                 // console.log('after', value)
                 // console.log(value)
               }
@@ -116,7 +116,7 @@ export class LBlock {
             if (position[1] != 0) {
                // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-                  console.log('future', futurePos[0])
+                  // console.log('future', futurePos[0])
                 if (futurePos[0] === 0) {
                   // console.log(position)
                   // console.log('future',futurePos)
@@ -150,12 +150,12 @@ export class LBlock {
             if (position[1] != 0) {
                // console.log(block.y, block.x)
               if (block.y === position[2] && block.x === position[1]) {
-                console.log('future', futurePos[0])
+                // console.log('future', futurePos[0])
                 if (futurePos[0] === 0) {
                   // console.log(position)
                   // console.log('future',futurePos)
                   value += 1;
-                  console.log(value)
+                  // console.log(value)
                 }
               }
             }

@@ -49,7 +49,7 @@ export class SquareTetromino {
       for (let i = 0; i < bodies.length; i++) {
         if (bodies[i].id != this.id) {
           if((this.posX + side < bodies[i].posX + bodies[i].w) && (this.posX + side + this.w > bodies[i].posX) && (this.posY + down < bodies[i].posY + bodies[i].h) && (this.posY + down + this.h > bodies[i].posY)) {
-             console.log("hit")
+             // console.log("hit")
              return true;
             }
           }
