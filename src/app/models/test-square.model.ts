@@ -100,27 +100,55 @@ export class TestSquare {
 
 
   moveDown() {
+    this.y+=50;
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.blocks[i].y < 950)) {
-        this.blocks[i].y += 50
+        this.blocks[i].y += 50;
       }
     }
   }
 
   moveRight() {
+    this.x+=50;
     this.collidedLeft = false;
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedRight === false) && (this.blocks[i].x <= 400)) {
-        this.blocks[i].x+= 50
+        this.blocks[i].x+= 50;
       }
     }
   }
 
   moveLeft() {
+    this.x -= 50;
     this.collidedRight = false;
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedLeft === false) && (this.blocks[i].x >= 0)) {
-        this.blocks[i].x -= 50
+        this.blocks[i].x -= 50;
+      }
+    }
+  }
+
+  rotate() {
+    // debugger;
+    this.blocks = [];
+    if(this.currentOrientation === 0) {
+      this.shape = this.piece.orientation.right
+      this.currentOrientation = 90
+    } else if (this.currentOrientation === 90) {
+      this.shape = this.piece.orientation.down
+      this.currentOrientation = 180;
+    } else if (this.currentOrientation === 180) {
+      this.shape = this.piece.orientation.left
+      this.currentOrientation = 270;
+    } else if (this.currentOrientation === 270) {
+      this.shape = this.piece.orientation.up;
+      this.currentOrientation = 0;
+    }
+    for(let i = 0; i < this.shape.length; i++){
+      for(let j = 0; j < this.shape[i].length; j++){
+        if(this.shape[i][j] === 1) {
+          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.piece.color))
+        }
       }
     }
   }
