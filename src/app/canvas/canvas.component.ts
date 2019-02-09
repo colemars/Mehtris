@@ -5,6 +5,7 @@ import "p5/lib/addons/p5.dom";
 import * as p5 from 'p5';
 import { GameArray } from '../models/game-array.model'
 import { LineCheck } from '../models/line-check.model'
+import { Score } from '../models/score.model'
 import { SquareTetromino } from '../models/square_tetromino.model'
 import { Test } from '../models/test.model'
 import { LBlock } from '../models/l.model'
@@ -30,6 +31,7 @@ export class CanvasComponent implements OnInit {
 
     let canvas,
     square,
+    score,
     bodies = [],
     count = 0;
 
@@ -47,13 +49,18 @@ export class CanvasComponent implements OnInit {
         let x = (window.innerWidth - s.width) / 2;
         let y = (window.innerHeight - s.height) / 2;
         canvas.position(x,y);
-        // s.background(255, 0, 200);
 
-          bodies.push(new Test(100, 100, 100))
+        //instantiates scoring class
+        score = new Score();
+        console.log(score)
+
+        //creates first piece
+        bodies.push(new Test(100, 100, 100))
 
       }
 
       s.keyPressed = () => {
+        console.log(score)
         let gameArray = []
         //creates game state
         GameArray.gameState(gameArray, bodies, s)
@@ -133,8 +140,9 @@ export class CanvasComponent implements OnInit {
 
       }
 
-      //checks if line is full
-      LineCheck.check(bodies, s)
+      //checks if line is full and scores
+      LineCheck.check(score, bodies, s)
+
 
 
 
