@@ -2,7 +2,7 @@
 
 #### _Classic Tetris created in Angular._
 
-#### By _**Robert Lee, Cole Marsteller, Miles Bradt, Rohan Moore**_
+#### By _**Robert Lee, Cole Marsteller, Miles Bradt**_
 
 ## Description
 
