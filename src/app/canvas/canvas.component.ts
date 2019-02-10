@@ -140,7 +140,7 @@ export class CanvasComponent implements OnInit {
       }
 
       //checks if line is full and scores
-      ScoreCheck.check(score, bodies, s)
+      // ScoreCheck.check(score, bodies, s)
       // console.log(score)
 
 
