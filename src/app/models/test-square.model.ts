@@ -41,17 +41,12 @@ export class TestSquare {
     this.blocks = [];
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
-        if(this.shape[i][j] === 1) {
+        if(this.shape[i][j] >= 1) {
           this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.piece.color))
         }
       }
     }
   }
-
-  findCenter() {
-
-  }
-
 
   shapeCheck() {
     if (this.requestedShape === 'square') {
@@ -241,7 +236,7 @@ export class TestSquare {
     }
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
-        if(this.shape[i][j] === 1) {
+        if(this.shape[i][j] >= 1) {
           this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.piece.color))
         }
       }
@@ -271,14 +266,14 @@ export class TestSquare {
       for (let i=0;i<this.shape.length;i++) {
         if (i === this.shape.length-1) {
           for (const position of this.shape[i]) {
-            if (position === 1) {
+            if (position >= 1) {
               downValue++
             }
           }
         }
         for (let j=0;j<this.shape[i].length;j++){
           if (this.shape[i+1]) {
-            if ((this.shape[i][j]===1) && (this.shape[i+1][j] === 0)) {
+            if ((this.shape[i][j] >= 1) && (this.shape[i+1][j] === 0)) {
               downValue++
             }
           }
@@ -289,11 +284,11 @@ export class TestSquare {
       //get leftValue
       let leftValue = 0;
       for (let i=0; i<this.shape.length; i++) {
-        if (this.shape[i][0] === 1) {
+        if (this.shape[i][0] >= 1) {
           leftValue++;
         }
         for (let j=0;j<this.shape[i].length;j++) {
-          if ((this.shape[i][j] === 1) && (this.shape[i][j-1] === 0)) {
+          if ((this.shape[i][j] >= 1) && (this.shape[i][j-1] === 0)) {
             leftValue++
           }
         }
@@ -303,12 +298,12 @@ export class TestSquare {
       //get rightValue
       let rightValue = 0;
       for (let i=0; i<this.shape.length; i++) {
-        if (this.shape[i][this.shape[i].length-1] === 1) {
+        if (this.shape[i][this.shape[i].length-1] >= 1) {
           console.log('hit here')
           rightValue++;
         }
         for (let j=0;j<this.shape[i].length;j++) {
-          if ((this.shape[i][j] === 1) && (this.shape[i][j+1] === 0)) {
+          if ((this.shape[i][j] >= 1) && (this.shape[i][j+1] === 0)) {
             console.log('hit there')
             rightValue++
           }
