@@ -1,6 +1,9 @@
 import { TestBlock } from './test_block.model'
+import { GameArray } from '../models/game-array.model'
 
 export class TestSquare {
+  gameState: any;
+  currentDirection: any;
   piece: any;
   currentOrientation: any;
   requestedShape: string;
@@ -46,6 +49,7 @@ export class TestSquare {
     this.shape = this.shapeCheck();
     this.piece;
     this.currentOrientation;
+    this.currentDirection;
     this.blockSize = blockSize;
     this.collidedLeft = false;
     this.collidedRight = false;
@@ -74,6 +78,7 @@ export class TestSquare {
     if (this.requestedShape === 'ell') {
       this.piece = this.shapes.ell;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.ell.orientation.up
     }
     if (this.requestedShape === 'antiEll') {
@@ -143,8 +148,25 @@ export class TestSquare {
   }
 
   getRotateDiff() {
-    let futurePiece = this.piece.orientation.right,
-        positionalDiffs = [];
+    let positionalDiffs = [],
+        futureShape,
+        canary = 0;
+
+    //gets next rotation
+    for (const orientation in this.piece.orientation) {
+      if (canary === 1) {
+        futureShape = this.piece.orientation[orientation]
+      }
+      if (this.currentDirection === orientation) {
+        canary = 1;
+      } else canary = 0;
+    }
+
+
+
+
+
+
 
     for (const row of this.shape) {
       for (const position of row) {
