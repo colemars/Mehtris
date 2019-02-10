@@ -79,38 +79,19 @@ export class CanvasComponent implements OnInit {
           if (this.body.noHitRight(bodies, gameArray)) {
             this.body.moveRight()
           }
-      } else if (s.keyCode === s.LEFT_ARROW) {
-        if (this.body.noHitLeft(bodies, gameArray)) {
-          this.body.moveLeft()
-        }
-      } else if(s.keyCode === s.DOWN_ARROW) {
-        if (this.body.noHitDown(bodies, gameArray)) {
-          this.body.moveDown()
+        } else if (s.keyCode === s.LEFT_ARROW) {
+          if (this.body.noHitLeft(bodies, gameArray)) {
+            this.body.moveLeft()
+          }
+        } else if(s.keyCode === s.DOWN_ARROW) {
+          if (this.body.noHitDown(bodies, gameArray)) {
+            this.body.moveDown()
           } else this.body.dead = true;
         } else if (s.keyCode === s.UP_ARROW) {
 
-          this.body.rotate(bodies, gameArray)
-        }
-
-
-
-  for (let i = 0; i < bodies.length; i++) {
-    bodies[i].blocks.forEach((block) => {
-      for (let z = 0; z < gameArray.length; z ++) {
-        let row = gameArray[z]
-
-        for (let j = 0; j < row.length-1; j++) {
-          let position = row[j+1];
-          if (block.y+50 === position[2] && block.x === position[1]) {
-              if (position[0] === 0) {
-
-              }
-            }
+          this.body.rotate(bodies, gameArray, s)
         }
       }
-    })
-  }
-  }
 
 
     s.draw = () => {
