@@ -63,10 +63,17 @@ export class TestSquare {
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
         if(this.shape[i][j] >= 1) {
-          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.piece.color))
+          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.shape[i][j], this.piece.color));
         }
       }
     }
+    for (const block of this.blocks){
+    }
+  }
+
+  getGameState(bodies, s) {
+    this.gameState = [];
+    this.gameState = GameArray.gameState(this.gameState, bodies, s)
   }
 
   shapeCheck() {
@@ -218,44 +225,37 @@ export class TestSquare {
     return positionalDiffs
   }
 
-  canRotate(bodies, gameArray) {
-    console.log(this.getRotateDiff());
-
-    for (const block of this.blocks) {
-      
-      for (let i = 0; i < gameArray.length; i++) {
-
+  canRotate(bodies, gameArray, s) {
+    let value = 0;
+    let positionalDiffs = this.getRotateDiff();
+    for (const positionalDiff of positionalDiffs) {
+      for (const block of this.blocks) {
+        if (positionalDiff[0] === block.id) {
+          for (let i = 0; i < this.gameState.length; i++) {
+            //finds the row our block is on
+            if (block.y+positionalDiff[2] === this.gameState[i][0][2]) {
+              for(let j = 0; j<this.gameState[i].length;j++) {
+                //finds the column our block is in
+                if (block.x+positionalDiff[1] === this.gameState[i][j][1]) {
+                  if (this.gameState[i][j][0] === 1 && this.gameState[i][j][1] != block.x && this.gameState[i][j][2] != block.y) {
+                    value++
+                    console.log(this.gameState)
+                    console.log('hit')
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-
-    // let value = 0;
-    // for (let i = 0; i < bodies.length; i++) {
-    //   this.blocks.forEach((block) => {
-    //     for (let z = 0; z < gameArray.length; z ++) {
-    //       if (gameArray[z+1]) {
-    //         let row = gameArray[z];
-    //         let futureRow = gameArray[z+1]
-    //         for (let j = 0; j < row.length; j++) {
-    //           let position = row[j];
-    //           let futurePos = futureRow[j]
-    //           if (block.y === position[2] && block.x === position[1]) {
-    //             if (futurePos[0] === 0) {
-    //               value += 1
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   })
-    // }
-    // if (value === this.movingBlocks('down')*bodies.length) {
-    //   return true;
-    // }
-
+    if (value > 1) {
+      return false;
+    } else return true;
   }
 
-  rotate(bodies, gameArray) {
-    this.canRotate(bodies, gameArray);
+  rotate(bodies, gameArray, s) {
+    this.canRotate(bodies, this.gameState, s);
     // debugger;
     this.blocks = [];
     if(this.currentOrientation === 0) {
@@ -276,9 +276,12 @@ export class TestSquare {
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
         if(this.shape[i][j] >= 1) {
-          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.piece.color))
+          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.shape[i][j], this.piece.color))
         }
       }
+      this.getGameState(bodies, s)
+    }
+    for (const block of this.blocks){
     }
   }
 
@@ -356,10 +359,10 @@ export class TestSquare {
     let value = 0;
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {
-        for (let z = 0; z < gameArray.length; z ++) {
-          if (gameArray[z+1]) {
-            let row = gameArray[z];
-            let futureRow = gameArray[z+1]
+        for (let z = 0; z < this.gameState.length; z ++) {
+          if (this.gameState[z+1]) {
+            let row = this.gameState[z];
+            let futureRow = this.gameState[z+1]
             for (let j = 0; j < row.length; j++) {
               let position = row[j];
               let futurePos = futureRow[j]
@@ -379,12 +382,11 @@ export class TestSquare {
   }
 
   noHitLeft(bodies, gameArray) {
-    // console.log('hello')
     let value = 0
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {
-        for (let z = 0; z < gameArray.length; z ++) {
-          let row = gameArray[z]
+        for (let z = 0; z < this.gameState.length; z ++) {
+          let row = this.gameState[z]
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j-1]
@@ -408,15 +410,13 @@ export class TestSquare {
     let value = 0
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {
-        // console.log(this.blocks)
-        for (let z = 0; z < gameArray.length; z ++) {
-          let row = gameArray[z]
+        for (let z = 0; z < this.gameState.length; z ++) {
+          let row = this.gameState[z]
           for (let j = 0; j < row.length; j++) {
             let position = row[j];
             let futurePos = row[j+1]
             if (block.y === position[2] && block.x === position[1]) {
               if (futurePos[0] === 0) {
-                console.log(futurePos)
                 value += 1;
               }
             }
