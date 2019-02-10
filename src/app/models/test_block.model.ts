@@ -1,10 +1,11 @@
 export class TestBlock {
   [x: string]: any;
-	constructor(x, y, w, color) { // no need for h, because it's square
+	constructor(x, y, w, id, color) { // no need for h, because it's square
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = w;
+    this.id = id;
     this.color = color;
     this.scored = false;
 	}
