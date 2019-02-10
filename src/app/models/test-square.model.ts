@@ -272,22 +272,23 @@ export class TestSquare {
 
   rotate(bodies, gameArray, s) {
             //clears our current blocks
-    this.blocks = [];
 
             //checks future block space
     if (this.canRotate(bodies, this.gameState, s)) {
+      this.blocks = [];
       this.shape = this.getNextRotate();
       this.currentDirection = this.nextDirection;
-    }
 
-            //builds new rotated peice
-    for(let i = 0; i < this.shape.length; i++){
-      for(let j = 0; j < this.shape[i].length; j++){
-        if(this.shape[i][j] >= 1) {
-          this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.shape[i][j], this.piece.color))
+
+              //builds new rotated peice
+      for(let i = 0; i < this.shape.length; i++){
+        for(let j = 0; j < this.shape[i].length; j++){
+          if(this.shape[i][j] >= 1) {
+            this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.shape[i][j], this.piece.color))
+          }
         }
+        this.getGameState(bodies, s)
       }
-      this.getGameState(bodies, s)
     }
   }
 
