@@ -4,6 +4,7 @@ import { GameArray } from '../models/game-array.model'
 export class TestSquare {
   gameState: any;
   currentDirection: any;
+  nextDirection: any;
   piece: any;
   currentOrientation: any;
   requestedShape: string;
@@ -50,6 +51,7 @@ export class TestSquare {
     this.piece;
     this.currentOrientation;
     this.currentDirection;
+    this.nextDirection;
     this.blockSize = blockSize;
     this.collidedLeft = false;
     this.collidedRight = false;
@@ -154,26 +156,48 @@ export class TestSquare {
     }
   }
 
-  getRotateDiff() {
-    let positionalDiffs = [],
-        futureShape,
-        canary = 0;
-
-    //gets next rotation
+  getNextRotate() {
+    let nextRotate,
+        canary = 0,
+        index = 0;
     for (const orientation in this.piece.orientation) {
+      index++
       if (canary === 1) {
-        futureShape = this.piece.orientation[orientation]
+        nextRotate = this.piece.orientation[orientation];
+        this.nextDirection = orientation;
+        // console.log('next',nextRotate);
       }
+      // console.log('direction', this.currentDirection)
+      // console.log('orientation', orientation)
       if (this.currentDirection === orientation) {
+        console.log('canary!', index)
         canary = 1;
+        if (index === 4) {
+          nextRotate = this.piece.orientation.up;
+          this.nextDirection = 'up';
+        }
       } else canary = 0;
     }
+    return nextRotate
+  }
 
+  getRotateDiff() {
+    let positionalDiffs = [],
+        futureShape = this.getNextRotate(),
+        canary = 0;
 
+        // console.log('future', futureShape);
+        // console.log(futureShape)
 
-
-
-
+    // //gets next rotation
+    // for (const orientation in this.piece.orientation) {
+    //   if (canary === 1) {
+    //     futureShape = this.piece.orientation[orientation]
+    //   }
+    //   if (this.currentDirection === orientation) {
+    //     canary = 1;
+    //   } else canary = 0;
+    // }
 
     for (const row of this.shape) {
       for (const position of row) {
@@ -253,21 +277,24 @@ export class TestSquare {
     this.canRotate(bodies, this.gameState, s);
     // debugger;
     this.blocks = [];
-    if(this.currentOrientation === 0) {
-      // if (this.shape.canRotate(90)) {
-        this.shape = this.piece.orientation.right
-        this.currentOrientation = 90
-      // }
-    } else if (this.currentOrientation === 90) {
-      this.shape = this.piece.orientation.down
-      this.currentOrientation = 180;
-    } else if (this.currentOrientation === 180) {
-      this.shape = this.piece.orientation.left
-      this.currentOrientation = 270;
-    } else if (this.currentOrientation === 270) {
-      this.shape = this.piece.orientation.up;
-      this.currentOrientation = 0;
-    }
+
+    this.shape = this.getNextRotate();
+    this.currentDirection = this.nextDirection;
+    // if(this.currentOrientation === 0) {
+    //   // if (this.shape.canRotate(90)) {
+    //     this.shape = this.piece.orientation.right
+    //     this.currentOrientation = 90
+    //   // }
+    // } else if (this.currentOrientation === 90) {
+    //   this.shape = this.piece.orientation.down
+    //   this.currentOrientation = 180;
+    // } else if (this.currentOrientation === 180) {
+    //   this.shape = this.piece.orientation.left
+    //   this.currentOrientation = 270;
+    // } else if (this.currentOrientation === 270) {
+    //   this.shape = this.piece.orientation.up;
+    //   this.currentOrientation = 0;
+    // }
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
         if(this.shape[i][j] >= 1) {
