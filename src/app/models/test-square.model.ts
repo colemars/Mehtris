@@ -130,12 +130,105 @@ export class TestSquare {
     }
   }
 
-  rotate() {
+  getRotateDiff() {
+    let futurePiece = this.piece.orientation.right,
+        positionalDiffs = [];
+
+    for (const row of this.shape) {
+      for (const position of row) {
+        if (position > 0) {
+          let presentPos,
+          futurePos,
+          xTranslate,
+          yTranslate;
+
+          for (let i=0;i<this.shape.length;i++){
+            let presentX = this.shape[i].indexOf(position);
+            let presentY = i
+            if (presentX != -1) {
+              presentPos = [presentX, i]
+            }
+          }
+
+          for (let i=0;i<futurePiece.length;i++){
+            let futureX = futurePiece[i].indexOf(position);
+            let futureY = i
+            if (futureX != -1) {
+              futurePos = [futurePiece[i].indexOf(position), i]
+            }
+          }
+
+          let xDiff = presentPos[0] - futurePos[0];
+          let yDiff = presentPos[1] - futurePos[1];
+
+          // console.log(position, presentPos, futurePos)
+          /*  console.log(futurePos) */
+
+          /* console.log(yDiff, xDiff) */
+
+          if (yDiff < 0) {
+            yTranslate = 50*Math.abs(yDiff)
+          } else if (yDiff > 0) {
+            yTranslate = -50*Math.abs(yDiff)
+          } else yTranslate = 0;
+
+          if (xDiff < 0) {
+            xTranslate = 50*Math.abs(xDiff)
+          } else if (xDiff > 0) {
+            xTranslate = -50*Math.abs(xDiff)
+          } else xTranslate = 0;
+          positionalDiffs.push([position, xTranslate, yTranslate])
+        }
+      }
+    }
+    return positionalDiffs
+  }
+
+  canRotate(bodies, gameArray) {
+    console.log(this.getRotateDiff());
+
+    for (const block of this.blocks) {
+      
+      for (let i = 0; i < gameArray.length; i++) {
+
+      }
+    }
+
+    // let value = 0;
+    // for (let i = 0; i < bodies.length; i++) {
+    //   this.blocks.forEach((block) => {
+    //     for (let z = 0; z < gameArray.length; z ++) {
+    //       if (gameArray[z+1]) {
+    //         let row = gameArray[z];
+    //         let futureRow = gameArray[z+1]
+    //         for (let j = 0; j < row.length; j++) {
+    //           let position = row[j];
+    //           let futurePos = futureRow[j]
+    //           if (block.y === position[2] && block.x === position[1]) {
+    //             if (futurePos[0] === 0) {
+    //               value += 1
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   })
+    // }
+    // if (value === this.movingBlocks('down')*bodies.length) {
+    //   return true;
+    // }
+
+  }
+
+  rotate(bodies, gameArray) {
+    this.canRotate(bodies, gameArray);
     // debugger;
     this.blocks = [];
     if(this.currentOrientation === 0) {
-      this.shape = this.piece.orientation.right
-      this.currentOrientation = 90
+      // if (this.shape.canRotate(90)) {
+        this.shape = this.piece.orientation.right
+        this.currentOrientation = 90
+      // }
     } else if (this.currentOrientation === 90) {
       this.shape = this.piece.orientation.down
       this.currentOrientation = 180;
