@@ -64,6 +64,7 @@ export class TestSquare {
     this.blocks = [];
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
+                //finds where to draw blocks
         if(this.shape[i][j] >= 1) {
           this.blocks.push(new TestBlock(this.x + (j*this.blockSize), this.y + (i*this.blockSize), this.blockSize, this.shape[i][j], this.piece.color));
         }
@@ -82,6 +83,7 @@ export class TestSquare {
     if (this.requestedShape === 'square') {
       this.piece = this.shapes.square;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.square.orientation.up
     }
     if (this.requestedShape === 'ell') {
@@ -93,33 +95,37 @@ export class TestSquare {
     if (this.requestedShape === 'antiEll') {
       this.piece = this.shapes.antiEll;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.antiEll.orientation.up
     }
     if (this.requestedShape === 'I') {
       this.piece = this.shapes.straight;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.straight.orientation.up
     }
     if (this.requestedShape === 's') {
       this.piece = this.shapes.s;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.s.orientation.up
     }
     if (this.requestedShape === 't') {
       this.piece = this.shapes.t;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.t.orientation.up
     }
     if (this.requestedShape === 'z') {
       this.piece = this.shapes.z;
       this.currentOrientation = 0;
+      this.currentDirection = 'up';
       return this.shapes.z.orientation.up
     }
   }
 
   show(p5){
     p5.push();
-    // p5.fill('#6B6E9C')
     for (const block of this.blocks) {
       block.show(p5);
     }
@@ -165,13 +171,11 @@ export class TestSquare {
       if (canary === 1) {
         nextRotate = this.piece.orientation[orientation];
         this.nextDirection = orientation;
-        // console.log('next',nextRotate);
       }
-      // console.log('direction', this.currentDirection)
-      // console.log('orientation', orientation)
       if (this.currentDirection === orientation) {
-        console.log('canary!', index)
+                //alerts next loop that it will be the rotation we want
         canary = 1;
+                //allows rotation to reset
         if (index === 4) {
           nextRotate = this.piece.orientation.up;
           this.nextDirection = 'up';
@@ -186,21 +190,9 @@ export class TestSquare {
         futureShape = this.getNextRotate(),
         canary = 0;
 
-        // console.log('future', futureShape);
-        // console.log(futureShape)
-
-    // //gets next rotation
-    // for (const orientation in this.piece.orientation) {
-    //   if (canary === 1) {
-    //     futureShape = this.piece.orientation[orientation]
-    //   }
-    //   if (this.currentDirection === orientation) {
-    //     canary = 1;
-    //   } else canary = 0;
-    // }
-
     for (const row of this.shape) {
       for (const position of row) {
+                //if there is a block being drawn here
         if (position > 0) {
           let presentPos,
           futurePos,
@@ -210,6 +202,7 @@ export class TestSquare {
           for (let i=0;i<this.shape.length;i++){
             let presentX = this.shape[i].indexOf(position);
             let presentY = i
+                    //if presentX exists
             if (presentX != -1) {
               presentPos = [presentX, i]
             }
@@ -218,14 +211,17 @@ export class TestSquare {
           for (let i=0;i<futureShape.length;i++){
             let futureX = futureShape[i].indexOf(position);
             let futureY = i
+                    //if futureX exists
             if (futureX != -1) {
               futurePos = [futureShape[i].indexOf(position), i]
             }
           }
 
+                  //finds difference between new and old positions
           let xDiff = presentPos[0] - futurePos[0];
           let yDiff = presentPos[1] - futurePos[1];
 
+                  //translates differences to game space context
           if (yDiff < 0) {
             yTranslate = 50*Math.abs(yDiff)
           } else if (yDiff > 0) {
@@ -251,11 +247,12 @@ export class TestSquare {
       for (const block of this.blocks) {
         if (positionalDiff[0] === block.id) {
           for (let i = 0; i < this.gameState.length; i++) {
-            //finds the row our block is on
+                    //finds the row our future block is on
             if (block.y+positionalDiff[2] === this.gameState[i][0][2]) {
               for(let j = 0; j<this.gameState[i].length;j++) {
-                //finds the column our block is in
+                        //finds the column our future block is in
                 if (block.x+positionalDiff[1] === this.gameState[i][j][1]) {
+                          //if our future block space is not already occupied by a block that is not one of our current blocks, value++
                   if (this.gameState[i][j][0] === 1 && this.gameState[i][j][1] != block.x && this.gameState[i][j][2] != block.y) {
                     value++
                     console.log(this.gameState)
@@ -268,33 +265,22 @@ export class TestSquare {
         }
       }
     }
-    if (value > 1) {
+    if (value > 0) {
       return false;
     } else return true;
   }
 
   rotate(bodies, gameArray, s) {
-    this.canRotate(bodies, this.gameState, s);
-    // debugger;
+            //clears our current blocks
     this.blocks = [];
 
-    this.shape = this.getNextRotate();
-    this.currentDirection = this.nextDirection;
-    // if(this.currentOrientation === 0) {
-    //   // if (this.shape.canRotate(90)) {
-    //     this.shape = this.piece.orientation.right
-    //     this.currentOrientation = 90
-    //   // }
-    // } else if (this.currentOrientation === 90) {
-    //   this.shape = this.piece.orientation.down
-    //   this.currentOrientation = 180;
-    // } else if (this.currentOrientation === 180) {
-    //   this.shape = this.piece.orientation.left
-    //   this.currentOrientation = 270;
-    // } else if (this.currentOrientation === 270) {
-    //   this.shape = this.piece.orientation.up;
-    //   this.currentOrientation = 0;
-    // }
+            //checks future block space
+    if (this.canRotate(bodies, this.gameState, s)) {
+      this.shape = this.getNextRotate();
+      this.currentDirection = this.nextDirection;
+    }
+
+            //builds new rotated peice
     for(let i = 0; i < this.shape.length; i++){
       for(let j = 0; j < this.shape[i].length; j++){
         if(this.shape[i][j] >= 1) {
@@ -302,8 +288,6 @@ export class TestSquare {
         }
       }
       this.getGameState(bodies, s)
-    }
-    for (const block of this.blocks){
     }
   }
 
@@ -324,19 +308,24 @@ export class TestSquare {
   }
 
   movingBlocks(direction) {
+            //finds the number blocks we need to look for hit detection on // open space facing blocks
     if (direction === 'down') {
-      // get downValue
+              // get number of blocks facing open space in down direction
       let downValue = 0;
       for (let i=0;i<this.shape.length;i++) {
+                //if we are looking at the bottom row we know it will be facing open space
         if (i === this.shape.length-1) {
           for (const position of this.shape[i]) {
+                    //if a block is being drawn here, value++
             if (position >= 1) {
               downValue++
             }
           }
         }
         for (let j=0;j<this.shape[i].length;j++){
+                  //if there is a row beneath the current looped row
           if (this.shape[i+1]) {
+                    //if a block is being drawn here, and the position immediately under it is empty, value++
             if ((this.shape[i][j] >= 1) && (this.shape[i+1][j] === 0)) {
               downValue++
             }
@@ -345,7 +334,7 @@ export class TestSquare {
       }
       return downValue;
     } else if (direction === 'left') {
-      //get leftValue
+              //get number of blocks facing open space in left direction
       let leftValue = 0;
       for (let i=0; i<this.shape.length; i++) {
         if (this.shape[i][0] >= 1) {
@@ -359,7 +348,7 @@ export class TestSquare {
       }
       return leftValue;
     } else if (direction === 'right') {
-      //get rightValue
+              //get number of blocks facing open space in right direction
       let rightValue = 0;
       for (let i=0; i<this.shape.length; i++) {
         if (this.shape[i][this.shape[i].length-1] >= 1) {
@@ -377,18 +366,24 @@ export class TestSquare {
 
   noHitDown(bodies, gameArray) {
     let value = 0;
+            //for each body in bodies
     for (let i = 0; i < bodies.length; i++) {
+              //for each block in body
       this.blocks.forEach((block) => {
+                //gets gameState
         for (let z = 0; z < this.gameState.length; z ++) {
+                  //to prevent errors on last row
           if (this.gameState[z+1]) {
             let row = this.gameState[z];
             let futureRow = this.gameState[z+1]
             for (let j = 0; j < row.length; j++) {
               let position = row[j];
               let futurePos = futureRow[j]
+                      //finds our blocks position within our game state
               if (block.y === position[2] && block.x === position[1]) {
+                        //if that position within game state is already occupied, value++;
                 if (futurePos[0] === 0) {
-                  value += 1
+                  value++;
                 }
               }
             }
