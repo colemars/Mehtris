@@ -191,21 +191,16 @@ export class TestSquare {
             }
           }
 
-          for (let i=0;i<futurePiece.length;i++){
-            let futureX = futurePiece[i].indexOf(position);
+          for (let i=0;i<futureShape.length;i++){
+            let futureX = futureShape[i].indexOf(position);
             let futureY = i
             if (futureX != -1) {
-              futurePos = [futurePiece[i].indexOf(position), i]
+              futurePos = [futureShape[i].indexOf(position), i]
             }
           }
 
           let xDiff = presentPos[0] - futurePos[0];
           let yDiff = presentPos[1] - futurePos[1];
-
-          // console.log(position, presentPos, futurePos)
-          /*  console.log(futurePos) */
-
-          /* console.log(yDiff, xDiff) */
 
           if (yDiff < 0) {
             yTranslate = 50*Math.abs(yDiff)
@@ -341,12 +336,10 @@ export class TestSquare {
       let rightValue = 0;
       for (let i=0; i<this.shape.length; i++) {
         if (this.shape[i][this.shape[i].length-1] >= 1) {
-          console.log('hit here')
           rightValue++;
         }
         for (let j=0;j<this.shape[i].length;j++) {
           if ((this.shape[i][j] >= 1) && (this.shape[i][j+1] === 0)) {
-            console.log('hit there')
             rightValue++
           }
         }
@@ -424,8 +417,6 @@ export class TestSquare {
         }
       })
     }
-    console.log(value)
-    console.log(this.movingBlocks('right'))
     if (value === this.movingBlocks('right')*bodies.length) {
       return true;
     }
