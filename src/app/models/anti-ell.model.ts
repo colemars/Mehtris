@@ -8,10 +8,10 @@ export class AntiEll {
     this.collidedLeft = false;
 		this.blocks = [];
 		const blockW = 50;
-		this.blocks.push(new TestBlock (x, y, blockW));
-		this.blocks.push(new TestBlock(x, y - 50, blockW));
-		this.blocks.push(new TestBlock(x, y - 100, blockW));
-		this.blocks.push(new TestBlock(x - 50, y, blockW));
+		// this.blocks.push(new TestBlock (x, y, blockW));
+		// this.blocks.push(new TestBlock(x, y - 50, blockW));
+		// this.blocks.push(new TestBlock(x, y - 100, blockW));
+		// this.blocks.push(new TestBlock(x - 50, y, blockW));
 	}
 
 	show(p5) {

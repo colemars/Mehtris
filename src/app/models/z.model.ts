@@ -8,10 +8,10 @@ export class Z {
     this.collidedLeft = false;
     this.blocks = [];
     const blockW = 50;
-    this.blocks.push(new TestBlock (x, y, blockW));
-    this.blocks.push(new TestBlock(x + 50, y, blockW));
-    this.blocks.push(new TestBlock(x + 50, y + 50, blockW));
-    this.blocks.push(new TestBlock(x + 100, y + 50, blockW));
+    // this.blocks.push(new TestBlock (x, y, blockW));
+    // this.blocks.push(new TestBlock(x + 50, y, blockW));
+    // this.blocks.push(new TestBlock(x + 50, y + 50, blockW));
+    // this.blocks.push(new TestBlock(x + 100, y + 50, blockW));
     this.tickClock = 0
   }
 

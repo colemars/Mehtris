@@ -6,13 +6,6 @@ import * as p5 from 'p5';
 import { GameArray } from '../models/game-array.model'
 import { ScoreCheck } from '../models/score-check.model'
 import { Score } from '../models/score.model'
-import { Square } from '../models/square.model'
-import { I } from '../models/I.model'
-import { Ell } from '../models/ell.model'
-import { AntiEll } from '../models/anti-ell.model'
-import { Z } from '../models/z.model'
-import { S } from '../models/s.model'
-import { T } from '../models/t.model'
 import { TestSquare } from '../models/test-square.model'
 
 @Component({
@@ -94,7 +87,7 @@ export class CanvasComponent implements OnInit {
           } else this.body.dead = true;
         } else if (s.keyCode === s.UP_ARROW) {
 
-          this.body.rotate()
+          this.body.rotate(bodies, gameArray)
         }
 
 
