@@ -69,7 +69,9 @@ export class CanvasComponent implements OnInit {
       s.keyPressed = () => {
         let gameArray = []
         //creates game state
-        GameArray.gameState(gameArray, bodies, s)
+        // GameArray.gameState(gameArray, bodies, s)
+
+        this.body.getGameState(bodies, s)
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
