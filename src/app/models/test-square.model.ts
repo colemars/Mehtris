@@ -127,7 +127,11 @@ export class TestSquare {
   show(p5){
     p5.push();
     for (const block of this.blocks) {
-      block.show(p5);
+      if (block.scored === false) {
+       block.show(p5);
+     } else {
+       this.blocks.splice(this.blocks.indexOf(block), 1)
+     }
     }
     p5.pop();
   }
