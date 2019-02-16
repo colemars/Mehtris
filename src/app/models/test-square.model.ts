@@ -149,6 +149,7 @@ export class TestSquare {
   moveRight() {
     this.x+=50;
     this.collidedLeft = false;
+    this.collidedRight = false;
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedRight === false) && (this.blocks[i].x <= 400)) {
         this.blocks[i].x+= 50;
@@ -158,6 +159,7 @@ export class TestSquare {
 
   moveLeft() {
     this.x -= 50;
+    this.collidedLeft = false;
     this.collidedRight = false;
     for (let i = 0; i < this.blocks.length; i++) {
       if ((this.dead === false) && (this.collidedLeft === false) && (this.blocks[i].x >= 0)) {
@@ -218,6 +220,8 @@ export class TestSquare {
                     //if futureX exists
             if (futureX != -1) {
               futurePos = [futureShape[i].indexOf(position), i]
+              // console.log('present', presentPos)
+              // console.log('future',futurePos)
             }
           }
 
@@ -246,21 +250,27 @@ export class TestSquare {
 
   canRotate(bodies, gameArray, s) {
     let value = 0;
+
     let positionalDiffs = this.getRotateDiff();
+
     for (const positionalDiff of positionalDiffs) {
       for (const block of this.blocks) {
         if (positionalDiff[0] === block.id) {
+
+          //if future block will be beyond the bounds of the canvas, value ++
+          if((block.x + positionalDiff[1] < 0) || (block.x + positionalDiff[1] > 450)) {
+            value++
+          }
+
           for (let i = 0; i < this.gameState.length; i++) {
                     //finds the row our future block is on
             if (block.y+positionalDiff[2] === this.gameState[i][0][2]) {
               for(let j = 0; j<this.gameState[i].length;j++) {
                         //finds the column our future block is in
                 if (block.x+positionalDiff[1] === this.gameState[i][j][1]) {
-                          //if our future block space is not already occupied by a block that is not one of our current blocks, value++
+                          //if our future block space is already occupied by a block that is not one of our current blocks, value++
                   if (this.gameState[i][j][0] === 1 && this.gameState[i][j][1] != block.x && this.gameState[i][j][2] != block.y) {
                     value++
-                    console.log(this.gameState)
-                    console.log('hit')
                   }
                 }
               }
