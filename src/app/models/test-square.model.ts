@@ -193,6 +193,7 @@ export class TestSquare {
 
   getRotateDiff() {
     let positionalDiffs = [],
+        positions = [],
         futureShape = this.getNextRotate(),
         canary = 0;
 
@@ -242,16 +243,19 @@ export class TestSquare {
             xTranslate = -50*Math.abs(xDiff)
           } else xTranslate = 0;
           positionalDiffs.push([position, xTranslate, yTranslate])
+          positions.push([position, presentPos, futurePos])
         }
       }
     }
-    return positionalDiffs
+    return [positionalDiffs, positions]
   }
 
   canRotate(bodies, gameArray, s) {
     let value = 0;
+    console.log('run')
 
-    let positionalDiffs = this.getRotateDiff();
+    let positions = this.getRotateDiff()[1];
+    let positionalDiffs = this.getRotateDiff()[0];
 
     for (const positionalDiff of positionalDiffs) {
       for (const block of this.blocks) {
@@ -263,13 +267,34 @@ export class TestSquare {
           }
 
           for (let i = 0; i < this.gameState.length; i++) {
-                    //finds the row our future block is on
+            //finds the row our future block is on
             if (block.y+positionalDiff[2] === this.gameState[i][0][2]) {
               for(let j = 0; j<this.gameState[i].length;j++) {
-                        //finds the column our future block is in
+                //finds the column our future block is in
                 if (block.x+positionalDiff[1] === this.gameState[i][j][1]) {
-                          //if our future block space is already occupied by a block that is not one of our current blocks, value++
-                  if (this.gameState[i][j][0] === 1 && this.gameState[i][j][1] != block.x && this.gameState[i][j][2] != block.y) {
+
+                  //if our future block space is already occupied by a block that is not one of our current blocks, value++
+                  let presentPos,
+                      futurePos;
+
+                  for (const position of positions) {
+                    if (position[0] === block.id) {
+                      presentPos = position[1];
+                      futurePos = position[2];
+                    }
+                  }
+
+                  // simple array value comparison
+                  const isEqual = (array1, array2) => {
+                    for (let i = 0; i < array1.length; i++) {
+                      if(array1[i] != array2[i]) {
+                       return false;
+                      }
+                    }
+                    return true;
+                  }
+
+                  if ((this.gameState[i][j][0] === 1) && (isEqual(presentPos, futurePos) != true)) {
                     value++
                   }
                 }
