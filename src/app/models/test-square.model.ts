@@ -136,7 +136,6 @@ export class TestSquare {
     p5.pop();
   }
 
-
   moveDown() {
     this.y+=50;
     for (let i = 0; i < this.blocks.length; i++) {
@@ -221,8 +220,6 @@ export class TestSquare {
                     //if futureX exists
             if (futureX != -1) {
               futurePos = [futureShape[i].indexOf(position), i]
-              // console.log('present', presentPos)
-              // console.log('future',futurePos)
             }
           }
 
@@ -330,8 +327,6 @@ export class TestSquare {
       }
     }
   }
-
-
 
   borderCheck(bodies) {
     for (let i =0; i < this.blocks.length; i++) {
