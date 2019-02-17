@@ -22,7 +22,7 @@ export class TestSquare {
     this.y = y;
     this.gameState = [];
     this.shapes = {
-      square:{orientation:{up:[[0,1,2,0],[0,3,4,0],[0,0,0,0]],right:[[0,1,1,0],[0,1,1,0],[0,0,0,0]],down:[[0,1,1,0],[0,1,1,0],[0,0,0,0]],left:[[0,1,1,0],[0,1,1,0],[0,0,0,0]]},color:'yellow'},
+      square:{orientation:{up:[[0,1,2,0],[0,3,4,0],[0,0,0,0]],right:[[0,1,2,0],[0,3,4,0],[0,0,0,0]],down:[[0,1,2,0],[0,3,4,0],[0,0,0,0]],left:[[0,1,2,0],[0,3,4,0],[0,0,0,0]]},color:'yellow'},
       ell:{orientation:{
         up:[
           [0,0,1],
@@ -40,11 +40,95 @@ export class TestSquare {
                 [1,2,0],
                 [0,3,0],
                 [0,4,0]]}, color:'orange'},
-      antiEll:{orientation:{up:[[1,0,0],[1,1,1],[0,0,0]],right:[[0,1,1],[0,1,0],[0,1,0]],down:[[0,0,0],[1,1,1],[0,0,1]],left:[[0,1,0],[0,1,0],[1,1,0]]}, color:'blue'},
-      straight:{orientation:{up:[[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],right:[[0,0,1,0],[0,0,1,0],[0,0,1,0],[0,0,1,0]],down:[[0,0,0,0],[0,0,0,0],[1,1,1,1],[0,0,0,0]],left:[[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]]}, color:'cyan'},
-      s:{orientation:{up:[[0,1,1],[1,1,0],[0,0,0]],right:[[0,1,0],[0,1,1],[0,0,1]],down:[[0,0,0],[0,1,1],[1,1,0]],left:[[1,0,0],[1,1,0],[0,1,0]]}, color:'green'},
-      t:{orientation:{up:[[0,1,0],[1,1,1],[0,0,0]],right:[[0,1,0],[0,1,1],[0,1,0]],down:[[0,0,0],[1,1,1],[0,1,0]],left:[[0,1,0],[1,1,0],[0,1,0]]}, color:'purple'},
-      z:{orientation:{up:[[1,1,0],[0,1,1],[0,0,0]],right:[[0,0,1],[0,1,1],[0,1,0]],down:[[0,0,0],[1,1,0],[0,1,1]],left:[[0,1,0],[1,1,0],[1,0,0]]}, color:'red'}
+      antiEll:{orientation:{
+        up:
+        [
+        [1,0,0],
+        [2,3,4],
+        [0,0,0]],
+        right:
+        [
+          [0,2,1],
+          [0,3,0],
+          [0,4,0]],
+          down:
+          [
+            [0,0,0],
+            [4,3,2],
+            [0,0,1]],
+            left:
+            [
+              [0,4,0],
+              [0,3,0],
+              [1,2,0]]}, color:'blue'},
+      straight:{orientation:{
+        up:
+        [
+          [0,0,0,0],
+          [1,2,3,4],
+          [0,0,0,0],
+          [0,0,0,0]],
+          right:
+          [
+            [0,0,1,0],
+            [0,0,2,0],
+            [0,0,3,0],
+            [0,0,4,0]],
+            down:
+            [
+              [0,0,0,0],
+              [0,0,0,0],
+              [4,3,2,1],
+              [0,0,0,0]],
+              left:
+              [
+                [0,4,0,0],
+                [0,3,0,0],
+                [0,2,0,0],
+                [0,1,0,0]]}, color:'cyan'},
+      s:{orientation:{
+        up:[
+          [0,3,4],
+          [1,2,0],
+          [0,0,0]],
+          right:[
+            [0,1,0],
+            [0,2,3],
+            [0,0,4]],down:[
+              [0,0,0],
+              [0,2,1],
+              [4,3,0]],left:[
+                [4,0,0],
+                [3,2,0],
+                [0,1,0]]}, color:'green'},
+      t:{orientation:{
+        up:
+        [
+          [0,4,0],
+          [1,2,3],
+          [0,0,0]],right:[
+            [0,1,0],
+            [0,2,4],
+            [0,3,0]],down:[
+              [0,0,0],
+              [3,2,1],
+              [0,4,0]],left:[
+                [0,3,0],
+                [4,2,0],
+                [0,1,0]]}, color:'purple'},
+      z:{orientation:{up:[
+        [1,2,0],
+        [0,3,4],
+        [0,0,0]],right:[
+          [0,0,1],
+          [0,3,2],
+          [0,4,0]],down:[
+            [0,0,0],
+            [4,3,0],
+            [0,2,1]],left:[
+              [0,4,0],
+              [2,3,0],
+              [1,0,0]]}, color:'red'}
     };
     this.requestedShape = requestedShape;
     this.shape = this.shapeCheck();
@@ -196,6 +280,8 @@ export class TestSquare {
         futureShape = this.getNextRotate(),
         canary = 0;
 
+        // console.log(futureShape)
+
     for (const row of this.shape) {
       for (const position of row) {
                 //if there is a block being drawn here
@@ -270,7 +356,6 @@ export class TestSquare {
                 //finds the column our future block is in
                 if (block.x+positionalDiff[1] === this.gameState[i][j][1]) {
 
-                  //if our future block space is already occupied by a block that is not one of our current blocks, value++
                   let presentPos,
                       futurePos;
 
@@ -291,7 +376,9 @@ export class TestSquare {
                     return true;
                   }
 
-                  if ((this.gameState[i][j][0] === 1) && (isEqual(presentPos, futurePos) != true)) {
+                  //if our future block space is already occupied by a block that is not one of our current blocks, value++
+                  if ((this.gameState[i][j][0] === 1) && (isEqual(presentPos, futurePos) === false) && (this.gameState[i][j][3] != 1)) {
+                    console.log(block.id,'hit')
                     value++
                   }
                 }
@@ -324,6 +411,7 @@ export class TestSquare {
           }
         }
         this.getGameState(bodies, s)
+        console.log(this.gameState)
       }
     }
   }
