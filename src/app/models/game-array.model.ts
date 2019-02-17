@@ -8,13 +8,14 @@ export class GameArray {
     }
 
     for (let i = 0; i < bodies.length; i++) {
-      //indicates whether the position contains an alive or dead body, -1 meaning dead, 1 meaning alive
-
       bodies[i].blocks.forEach((block => {
         gameArray.forEach((row) => {
           row.forEach((position) => {
             if (block.y === position[2] && block.x === position[1]) {
-              position[3] = 1;
+              //indicates if the block is dead or alive
+              if (bodies[i].dead === false) {
+                position[3] = 1;
+              }
               position[0] = 1;
             }
           })

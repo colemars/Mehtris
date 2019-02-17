@@ -99,9 +99,9 @@ export class CanvasComponent implements OnInit {
       this.body.borderCheck();
 
       if (this.body.dead === true) {
-        let pieceNumber = 3;
+        // let pieceNumber = 3;
           // let pieceNumber = Math.floor((Math.random() * 4) + 1);
-        // let pieceNumber = Math.floor((Math.random() * 7) + 1);
+        let pieceNumber = Math.floor((Math.random() * 7) + 1);
         console.log('number',pieceNumber)
         if (pieceNumber === 1) {
           bodies.push(new TestSquare(100, 100, 'square', 50))

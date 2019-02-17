@@ -280,8 +280,6 @@ export class TestSquare {
         futureShape = this.getNextRotate(),
         canary = 0;
 
-        // console.log(futureShape)
-
     for (const row of this.shape) {
       for (const position of row) {
                 //if there is a block being drawn here
@@ -335,8 +333,6 @@ export class TestSquare {
 
   canRotate(bodies, gameArray, s) {
     let value = 0;
-    console.log('run')
-
     let positions = this.getRotateDiff()[1];
     let positionalDiffs = this.getRotateDiff()[0];
 
@@ -394,10 +390,10 @@ export class TestSquare {
   }
 
   rotate(bodies, gameArray, s) {
-            //clears our current blocks
 
-            //checks future block space
+    //checks future block space
     if (this.canRotate(bodies, this.gameState, s)) {
+      //clears our current blocks
       this.blocks = [];
       this.shape = this.getNextRotate();
       this.currentDirection = this.nextDirection;
@@ -411,7 +407,6 @@ export class TestSquare {
           }
         }
         this.getGameState(bodies, s)
-        console.log(this.gameState)
       }
     }
   }
