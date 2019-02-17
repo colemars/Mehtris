@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//required to include scripts in angular.cli and types in tsconfig
+//to use, requires that I include scripts in angular.cli and types in tsconfig
 import "p5/lib/addons/p5.dom";
 
 import * as p5 from 'p5';
@@ -48,34 +48,18 @@ export class CanvasComponent implements OnInit {
         console.log(score)
 
         //creates first piece
-
-      	// let pmShape = [
-      	// 	[1, 1, 1, 1],
-      	// 	[0, 1, 0, 1],
-      	// 	[0, 1, 0, 1],
-      	// 	[1, 1, 0, 1],
-      	// ]
-
-         let shape = [
-           [1,1,0],
-           [0,1,1]
-         ]
-        bodies.push(new TestSquare(100, 100, 'ell', 50))
-        // p.display()
-        // bodies.push(new Z(100, 100, 100))
-
+        bodies.push(new TestSquare(100, 0, 'ell', 50))
       }
 
       s.keyPressed = () => {
         let gameArray = []
-        //creates game state
+        // // creates game state // unsure if needed here
         // GameArray.gameState(gameArray, bodies, s)
 
         this.body.getGameState(bodies, s)
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
-          console.log('key press')
           if (this.body.noHitRight(bodies, gameArray)) {
             this.body.moveRight()
           }
@@ -102,7 +86,6 @@ export class CanvasComponent implements OnInit {
 
       for (let i = 0; i < bodies.length; i++) {
         bodies[i].show(s);
-        // bodies[i].display(s);
       }
 
 
@@ -116,10 +99,9 @@ export class CanvasComponent implements OnInit {
       this.body.borderCheck();
 
       if (this.body.dead === true) {
-        // console.log('hello')
-        // let pieceNumber = 1;
+        let pieceNumber = 3;
           // let pieceNumber = Math.floor((Math.random() * 4) + 1);
-        let pieceNumber = Math.floor((Math.random() * 7) + 1);
+        // let pieceNumber = Math.floor((Math.random() * 7) + 1);
         console.log('number',pieceNumber)
         if (pieceNumber === 1) {
           bodies.push(new TestSquare(100, 100, 'square', 50))
@@ -140,7 +122,7 @@ export class CanvasComponent implements OnInit {
       }
 
       //checks if line is full and scores
-      // ScoreCheck.check(score, bodies, s)
+      ScoreCheck.check(score, bodies, s)
       // console.log(score)
 
 
