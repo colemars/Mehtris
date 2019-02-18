@@ -331,7 +331,7 @@ export class TestSquare {
     return [positionalDiffs, positions]
   }
 
-  canRotate(bodies, gameArray, s) {
+  canRotate(bodies, s) {
     let value = 0;
     let positions = this.getRotateDiff()[1];
     let positionalDiffs = this.getRotateDiff()[0];
@@ -392,7 +392,7 @@ export class TestSquare {
   rotate(bodies, gameArray, s) {
 
     //checks future block space
-    if (this.canRotate(bodies, this.gameState, s)) {
+    if (this.canRotate(bodies, s)) {
       //clears our current blocks
       this.blocks = [];
       this.shape = this.getNextRotate();
@@ -482,7 +482,7 @@ export class TestSquare {
     }
   }
 
-  noHitDown(bodies, gameArray) {
+  noHitDown(bodies) {
     let value = 0;
             //for each body in bodies
     for (let i = 0; i < bodies.length; i++) {
@@ -509,12 +509,13 @@ export class TestSquare {
         }
       })
     }
+    console.log(value)
     if (value === this.movingBlocks('down')*bodies.length) {
       return true;
     }
   }
 
-  noHitLeft(bodies, gameArray) {
+  noHitLeft(bodies) {
     let value = 0
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {
@@ -539,7 +540,7 @@ export class TestSquare {
     }
   }
 
-  noHitRight(bodies, gameArray) {
+  noHitRight(bodies) {
     let value = 0
     for (let i = 0; i < bodies.length; i++) {
       this.blocks.forEach((block) => {

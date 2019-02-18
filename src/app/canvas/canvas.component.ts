@@ -60,15 +60,15 @@ export class CanvasComponent implements OnInit {
 
         //moves piece within boundaries
         if(s.keyCode === s.RIGHT_ARROW) {
-          if (this.body.noHitRight(bodies, gameArray)) {
+          if (this.body.noHitRight(bodies)) {
             this.body.moveRight()
           }
         } else if (s.keyCode === s.LEFT_ARROW) {
-          if (this.body.noHitLeft(bodies, gameArray)) {
+          if (this.body.noHitLeft(bodies)) {
             this.body.moveLeft()
           }
         } else if(s.keyCode === s.DOWN_ARROW) {
-          if (this.body.noHitDown(bodies, gameArray)) {
+          if (this.body.noHitDown(bodies)) {
             this.body.moveDown()
           } else this.body.dead = true;
         } else if (s.keyCode === s.UP_ARROW) {
