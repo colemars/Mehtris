@@ -90,14 +90,6 @@ export class CanvasComponent implements OnInit {
         bodies[i].show(s);
       }
 
-
-
-      // for (let i = 0; i < bodies.length; i++) {
-      //   if (bodies[i].dead === false) {
-      //     this.body = bodies[i];
-      //   }
-      // }
-
       this.body.borderCheck();
 
       if (this.body.dead === true) {
