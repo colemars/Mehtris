@@ -220,6 +220,21 @@ export class TestSquare {
     p5.pop();
   }
 
+  fall(bodies, p5){
+    let tick = setInterval(() => {
+      this.getGameState(bodies, p5)
+      console.log(bodies)
+      if(this.noHitDown(bodies)) {
+        this.moveDown()
+      } else {
+        this.dead = true;
+      }
+      if (this.dead === true) {
+        clearInterval(tick);
+      }
+    }, 500)
+  }
+
   moveDown() {
     this.y+=50;
     for (let i = 0; i < this.blocks.length; i++) {
