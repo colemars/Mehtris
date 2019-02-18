@@ -45,10 +45,9 @@ export class CanvasComponent implements OnInit {
 
         //instantiates scoring class
         score = new Score();
-        console.log(score)
 
         //creates first piece
-        bodies.push(new TestSquare(100, 0, 'ell', 50));
+        bodies.push(new TestSquare(100, -100, 'ell', 50));
         this.body = bodies[0];
         this.body.fall(bodies, s);
 
@@ -107,31 +106,31 @@ export class CanvasComponent implements OnInit {
         let pieceNumber = Math.floor((Math.random() * 7) + 1);
         console.log('number',pieceNumber)
         if (pieceNumber === 1) {
-          let square = new TestSquare(100, 100, 'square', 50)
+          let square = new TestSquare(100, -100, 'square', 50)
           bodies.push(square)
           this.body = square
         } else if (pieceNumber === 2) {
-          let ell = new TestSquare(100, 100, 'ell', 50)
+          let ell = new TestSquare(100, -100, 'ell', 50)
           bodies.push(ell)
           this.body = ell
         } else if (pieceNumber === 3) {
-          let antiEll = new TestSquare(100, 100, 'antiEll', 50)
+          let antiEll = new TestSquare(100, -100, 'antiEll', 50)
           bodies.push(antiEll)
           this.body = antiEll
         } else if (pieceNumber === 4) {
-          let straight = new TestSquare(100, 100, 'I', 50)
+          let straight = new TestSquare(100, -100, 'I', 50)
           bodies.push(straight)
           this.body = straight
         } else if (pieceNumber === 5) {
-          let t = new TestSquare(100, 100, 't', 50)
+          let t = new TestSquare(100, -100, 't', 50)
           bodies.push(t)
           this.body = t
         } else if (pieceNumber === 6) {
-          let z = new TestSquare(100, 100, 'z', 50)
+          let z = new TestSquare(100, -100, 'z', 50)
           bodies.push(z)
           this.body = z
         } else if (pieceNumber === 7) {
-          let s = new TestSquare(100, 100, 's', 50)
+          let s = new TestSquare(100, -100, 's', 50)
           bodies.push(s)
           this.body = s
         }
