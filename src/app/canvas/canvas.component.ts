@@ -90,11 +90,11 @@ export class CanvasComponent implements OnInit {
 
 
 
-      for (let i = 0; i < bodies.length; i++) {
-        if (bodies[i].dead === false) {
-          this.body = bodies[i];
-        }
-      }
+      // for (let i = 0; i < bodies.length; i++) {
+      //   if (bodies[i].dead === false) {
+      //     this.body = bodies[i];
+      //   }
+      // }
 
       this.body.borderCheck();
 
@@ -104,21 +104,35 @@ export class CanvasComponent implements OnInit {
         let pieceNumber = Math.floor((Math.random() * 7) + 1);
         console.log('number',pieceNumber)
         if (pieceNumber === 1) {
-          bodies.push(new TestSquare(100, 100, 'square', 50))
+          let square = new TestSquare(100, 100, 'square', 50)
+          bodies.push(square)
+          this.body = square
         } else if (pieceNumber === 2) {
-          bodies.push(new TestSquare(100, 100, 'ell', 50))
+          let ell = new TestSquare(100, 100, 'ell', 50)
+          bodies.push(ell)
+          this.body = ell
         } else if (pieceNumber === 3) {
-          bodies.push(new TestSquare(100, 100, 'antiEll', 50))
+          let antiEll = new TestSquare(100, 100, 'antiEll', 50)
+          bodies.push(antiEll)
+          this.body = antiEll
         } else if (pieceNumber === 4) {
-          bodies.push(new TestSquare(100, 100, 'I', 50))
+          let straight = new TestSquare(100, 100, 'I', 50)
+          bodies.push(straight)
+          this.body = straight
         } else if (pieceNumber === 5) {
-          bodies.push(new TestSquare(100, 100, 't', 50))
+          let t = new TestSquare(100, 100, 't', 50)
+          bodies.push(t)
+          this.body = t
         } else if (pieceNumber === 6) {
-          bodies.push(new TestSquare(100, 100, 'z', 50))
+          let z = new TestSquare(100, 100, 'z', 50)
+          bodies.push(z)
+          this.body = z
         } else if (pieceNumber === 7) {
-          bodies.push(new TestSquare(100, 100, 's', 50))
+          let s = new TestSquare(100, 100, 's', 50)
+          bodies.push(s)
+          this.body = s
         }
-
+        this.body.fall(bodies,s)
       }
 
       //checks if line is full and scores
