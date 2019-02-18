@@ -48,7 +48,10 @@ export class CanvasComponent implements OnInit {
         console.log(score)
 
         //creates first piece
-        bodies.push(new TestSquare(100, 0, 'ell', 50))
+        bodies.push(new TestSquare(100, 0, 'ell', 50));
+        this.body = bodies[0];
+        this.body.fall(bodies, s);
+
       }
 
       s.keyPressed = () => {
