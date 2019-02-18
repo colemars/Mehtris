@@ -223,7 +223,6 @@ export class TestSquare {
   fall(bodies, p5){
     let tick = setInterval(() => {
       this.getGameState(bodies, p5)
-      console.log(bodies)
       if(this.noHitDown(bodies)) {
         this.moveDown()
       } else {
@@ -389,7 +388,6 @@ export class TestSquare {
 
                   //if our future block space is already occupied by a block that is not one of our current blocks, value++
                   if ((this.gameState[i][j][0] === 1) && (isEqual(presentPos, futurePos) === false) && (this.gameState[i][j][3] != 1)) {
-                    console.log(block.id,'hit')
                     value++
                   }
                 }
@@ -524,7 +522,6 @@ export class TestSquare {
         }
       })
     }
-    console.log(value)
     if (value === this.movingBlocks('down')*bodies.length) {
       return true;
     }

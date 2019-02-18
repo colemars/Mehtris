@@ -104,7 +104,6 @@ export class CanvasComponent implements OnInit {
         // let pieceNumber = 3;
           // let pieceNumber = Math.floor((Math.random() * 4) + 1);
         let pieceNumber = Math.floor((Math.random() * 7) + 1);
-        console.log('number',pieceNumber)
         if (pieceNumber === 1) {
           let square = new TestSquare(100, -100, 'square', 50)
           bodies.push(square)
@@ -139,10 +138,6 @@ export class CanvasComponent implements OnInit {
 
       //checks if line is full and scores
       ScoreCheck.check(score, bodies, s)
-      // console.log(score)
-
-
-
 
     }
 }
