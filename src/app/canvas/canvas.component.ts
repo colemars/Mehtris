@@ -45,9 +45,12 @@ export class CanvasComponent implements OnInit {
 
         //instantiates scoring class
         score = new Score();
+        setInterval( () => {
+          console.log(score)
+        },1000)
 
         //creates first piece
-        bodies.push(new TestSquare(100, -100, 'ell', 50));
+        bodies.push(new TestSquare(150, -100, 'ell', 50));
         this.body = bodies[0];
         this.body.fall(bodies, s);
 
